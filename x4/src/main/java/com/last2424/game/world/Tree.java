@@ -24,7 +24,7 @@ public class Tree {
 			sprites[0] = new Sprite(new TextureRegion("test/trees/red.png", new Vector2f(0, 0), new Vector2f(53, 55)), 
 					Color.WHITE, this.position, new Vector2f(53, 55));
 			sprites[1] = new Sprite(new TextureRegion("test/trees/red.png", new Vector2f(0, 55), new Vector2f(53, 19)), 
-					Color.BLUE, this.lowPosition, new Vector2f(53, 19));
+					Color.WHITE, this.lowPosition, new Vector2f(53, 19));
 		}
 	}
 	
