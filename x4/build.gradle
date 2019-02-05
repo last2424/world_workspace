@@ -20,6 +20,7 @@ repositories {
      maven { url "http://repo.maven.apache.org/maven2" }
 }
 dependencies {
+	testCompile group: 'junit', name: 'junit', version: '4.+'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version:'1.1.1'
     compile group: 'org.joml', name: 'joml-camera', version:'1.2.0-SNAPSHOT'
     compile group: 'org.lwjgl', name: 'lwjgl', version:'3.1.2-SNAPSHOT'
@@ -35,10 +36,10 @@ dependencies {
 sourceSets {
         main {
             java {
-                srcDir 'src/java'
+                srcDir 'src/java/com'
             }
             resources {
                 srcDir 'src/resources'
             }
         }
-    }
+}
