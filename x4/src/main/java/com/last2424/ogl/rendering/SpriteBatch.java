@@ -36,16 +36,18 @@ public class SpriteBatch {
 	}
 	
 	public void draw(TextureRegion texture, int x, int y, int width, int height, float red, float green, float blue, float alpha) {
+		float widthTexture = texture.GetTexture().getWidth(), heightTexture = texture.GetTexture().getHeight();
+		Vector2f regionPos = texture.regionPos, regionSize = texture.regionSize;
 		texture.GetTexture().bind();
 		glBegin(GL_QUADS);
 		setColor(red, green, blue, alpha);
-		glTexCoord2f(texture.regionPos.x/texture.GetTexture().getWidth(), texture.regionPos.y/texture.GetTexture().getHeight());
+		glTexCoord2f(regionPos.x/widthTexture, regionPos.y/heightTexture);
 		glVertex2f(x, y);
-		glTexCoord2f(texture.regionPos.x/texture.GetTexture().getWidth()+texture.regionSize.x/texture.GetTexture().getWidth(), texture.regionPos.y/texture.GetTexture().getHeight());
+		glTexCoord2f(regionPos.x/widthTexture+regionSize.x/widthTexture, regionPos.y/heightTexture);
 		glVertex2f(x+width, y);
-		glTexCoord2f(texture.regionPos.x/texture.GetTexture().getWidth()+texture.regionSize.x/texture.GetTexture().getWidth(), texture.regionPos.y/texture.GetTexture().getHeight()+texture.regionSize.y/texture.GetTexture().getHeight());
+		glTexCoord2f(regionPos.x/widthTexture+regionSize.x/widthTexture, regionPos.y/heightTexture+regionSize.y/heightTexture);
 		glVertex2f(x+width, y+height);
-		glTexCoord2f(texture.regionPos.x/texture.GetTexture().getWidth(), texture.regionPos.y/texture.GetTexture().getHeight()+texture.regionSize.y/texture.GetTexture().getHeight());
+		glTexCoord2f(regionPos.x/widthTexture, regionPos.y/heightTexture+regionSize.y/heightTexture);
 		glVertex2f(x, y+height);
 		glEnd();
 	}

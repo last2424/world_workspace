@@ -11,8 +11,8 @@ public class Dialog {
 	Dialog nextDialog;
 	
 	public Dialog() {
-		pages = new ArrayList();
-		aqelements = new ArrayList();
+		pages = new ArrayList<Page>();
+		aqelements = new ArrayList<AQElement>();
 	}
 	
 	public void AddPage(Page page) {

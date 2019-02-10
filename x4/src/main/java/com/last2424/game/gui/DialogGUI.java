@@ -5,6 +5,7 @@ import java.awt.Rectangle;
 
 import com.last2424.game.Logic;
 import com.last2424.game.mechanics.dialog.Dialog;
+import com.last2424.game.mechanics.dialog.Page;
 import com.last2424.game.scenes.MainScene;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.input.MouseHandler;
@@ -51,15 +52,16 @@ public class DialogGUI {
 		if(isStarted) {
 			dialogBackground.draw(batch);
 			if(currentDialog != null) {
+				Page page = currentDialog.GetPage(currentPage);
 				if(delay <= 0) {
 					delay = currentDialog.GetPage(currentPage).delay;
-					if(!text.equals(currentDialog.GetPage(currentPage).GetText())) {
-						if(symbol < currentDialog.GetPage(currentPage).GetText().length()) {
-							text += currentDialog.GetPage(currentPage).GetText().substring(symbol, symbol+1);
+					if(!text.equals(page.GetText())) {
+						if(symbol < page.GetText().length()) {
+							text += page.GetText().substring(symbol, symbol+1);
 							symbol += 1;
 						}
 						if(MouseHandler.isMousePressed(0)) {
-							text = currentDialog.GetPage(currentPage).GetText();
+							text = page.GetText();
 						}
 					}else {
 						if(MouseHandler.isMousePressed(0)) {

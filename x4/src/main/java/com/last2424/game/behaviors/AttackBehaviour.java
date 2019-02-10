@@ -1,5 +1,7 @@
 package com.last2424.game.behaviors;
 
+import java.util.List;
+
 import org.joml.Vector2f;
 
 import com.last2424.game.Dice;
@@ -27,30 +29,35 @@ public class AttackBehaviour implements Behaviour {
 
 	@Override
 	public void update(Entity entity, float delta) {
-		
+		Behaviour behaviour = ((EntityNPC) entity).GetBehaviour();
 		if(isStarted) {
-			if(((EntityNPC) entity).GetBehaviour().isStarted()) {
-				((EntityNPC) entity).GetBehaviour().stop();
+			if(behaviour.isStarted()) {
+				behaviour.stop();
 			}
 			
 			if(GameMath.GetDistance(entity, target) < 5) {
 				attack();
 			}else {
+				Vector2f entityPos = entity.GetPosition(), targetPos = target.GetPosition();
+				
+				float moveSpeed = entity.GetMoveSpeed();
+				
 				float moveX = 0, moveY = 0;
-				if(entity.GetPosition().x > target.GetPosition().x) {
-					moveX = -entity.GetMoveSpeed();
+				
+				if(entityPos.x > targetPos.x) {
+					moveX = -moveSpeed;
 				}
-				if(entity.GetPosition().x < target.GetPosition().x) {
-					moveX = entity.GetMoveSpeed();
+				if(entityPos.x < targetPos.x) {
+					moveX = moveSpeed;
 				}
 				
-				if(entity.GetPosition().y > target.GetPosition().y) {
-					moveY = -entity.GetMoveSpeed();
+				if(entityPos.y > targetPos.y) {
+					moveY = -moveSpeed;
 				}
-				if(entity.GetPosition().y < target.GetPosition().y) {
-					moveY = entity.GetMoveSpeed();
+				if(entityPos.y < targetPos.y) {
+					moveY = moveSpeed;
 				}
-				entity.SetPosition(entity.GetPosition().x+moveX, entity.GetPosition().y+moveY);
+				entity.SetPosition(entityPos.x+moveX, entityPos.y+moveY);
 				
 				if(GameMath.GetDistance(target, pointAttack) > 400) {
 					int temp = Dice.rollDice();
@@ -62,14 +69,14 @@ public class AttackBehaviour implements Behaviour {
 				}
 			}
 		}else {
-			if(!((EntityNPC) entity).GetBehaviour().isStarted()) {
-				((EntityNPC) entity).GetBehaviour().start();
+			if(!behaviour.isStarted()) {
+				behaviour.start();
 			}
-			
-			for(int i = 0; i < ((EntityNPC) entity).GetEntitiesArroundMe().size(); i++) {
+			List<Entity> ent = ((EntityNPC) entity).GetEntitiesArroundMe();
+			for(int i = 0; i < ent.size(); i++) {
 				for(String enemy : ((EntityNPC) entity).enemies) {
-					if((((EntityNPC) entity).GetEntitiesArroundMe().get(i)).GetName().equals(enemy)) {
-						target = ((EntityNPC) entity).GetEntitiesArroundMe().get(i);
+					if((ent.get(i)).GetName().equals(enemy)) {
+						target = ent.get(i);
 						pointAttack = new Vector2f();
 						pointAttack.x = target.GetPosition().x;
 						pointAttack.y = target.GetPosition().y;

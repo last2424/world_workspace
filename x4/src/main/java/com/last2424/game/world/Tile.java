@@ -54,8 +54,7 @@ public class Tile {
 	public enum TileConfig {
 		FLOOR,
 		SOLID,
-		FLUID,
-		ROOF
+		FLUID
 	}
 	
 }

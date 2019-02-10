@@ -40,24 +40,26 @@ public class ABMoveBehaviour implements Behaviour {
 	public void update(Entity entity, float delta) {
 		if(isStarted) {
 			float moveX = 0, moveY = 0;
-			Rectangle rect = new Rectangle((int)entity.GetPosition().x, (int)entity.GetPosition().y, (int)entity.GetSize().x, (int)entity.GetSize().y), 
-					rect2 = new Rectangle((int)points.get(currentPoint).GetPosition().x, (int)points.get(currentPoint).GetPosition().y, 1, 1) ;
+			Vector2f positionPoint = points.get(currentPoint).GetPosition();
+			Vector2f entityPosition = entity.GetPosition(), entitySize = entity.GetSize();
+			Rectangle rect = new Rectangle((int)entityPosition.x, (int)entityPosition.y, (int)entitySize.x, (int)entitySize.y), 
+					rect2 = new Rectangle((int)positionPoint.x, (int)positionPoint.y, 1, 1) ;
 			if(!GameMath.Intersects(rect, rect2)) {
-				if(entity.GetPosition().x > points.get(currentPoint).GetPosition().x) {
+				if(entityPosition.x > positionPoint.x) {
 					moveX = -entity.GetMoveSpeed();
 				}
-				if(entity.GetPosition().x < points.get(currentPoint).GetPosition().x) {
+				if(entityPosition.x < positionPoint.x) {
 					moveX = entity.GetMoveSpeed();
 				}
 				
-				if(entity.GetPosition().y > points.get(currentPoint).GetPosition().y) {
+				if(entityPosition.y > positionPoint.y) {
 					moveY = -entity.GetMoveSpeed();
 				}
-				if(entity.GetPosition().y < points.get(currentPoint).GetPosition().y) {
+				if(entityPosition.y < positionPoint.y) {
 					moveY = entity.GetMoveSpeed();
 				}
 				
-				entity.SetPosition(entity.GetPosition().x+moveX, entity.GetPosition().y+moveY);
+				entity.SetPosition(entityPosition.x+moveX, entityPosition.y+moveY);
 			}else {
 				nextPoint(delta);
 			}
@@ -65,12 +67,13 @@ public class ABMoveBehaviour implements Behaviour {
 	}
 	
 	private void nextPoint(float delta) {
+		Point point = points.get(currentPoint);
 		if(currentDelay <= 0) {
-			currentDelay = points.get(currentPoint).delay;
+			currentDelay = point.delay;
 		}
 		
-		if(points.get(currentPoint).delay <= 0) {
-			points.get(currentPoint).delay = currentDelay;
+		if(point.delay <= 0) {
+			point.delay = currentDelay;
 			currentDelay = 0;
 			if(currentPoint < points.size()-1) {
 				currentPoint++;
@@ -82,7 +85,7 @@ public class ABMoveBehaviour implements Behaviour {
 				}
 			}
 		}else {
-			points.get(currentPoint).delay -= delta;
+			point.delay -= delta;
 		}
 	}
 

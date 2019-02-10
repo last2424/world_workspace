@@ -2,6 +2,7 @@ package com.last2424.game.gui;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.List;
 
 import com.last2424.game.mechanics.items.Cell;
 import com.last2424.game.mechanics.items.Item;
@@ -34,7 +35,8 @@ public class InventoryGUI {
 	
 	private void drawInventory(SpriteBatch batch) {
 		int j = 1, k = 1;
-		for(int i = 0; i < storage.GetInventory().size(); i++) {
+		List<Cell> inv = storage.GetInventory();
+		for(int i = 0; i < inv.size(); i++) {
 			
 			if(i % 5 == 0) {
 				j++;
@@ -49,7 +51,7 @@ public class InventoryGUI {
 				cellSprite.SetColor(new Color(1.0f, 0.0f, 0.0f, 1.0f));
 				
 				if(MouseHandler.isMousePressed(0)) {
-					onItemClick(storage.GetInventory().get(i));
+					onItemClick(inv.get(i));
 				}
 				
 			}
@@ -57,25 +59,26 @@ public class InventoryGUI {
 			cellSprite.draw(batch);
 			k++;
 			
-			if(storage.GetInventory().get(i).GetItem() != null) {
-				batch.draw(storage.GetInventory().get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);					
+			if(inv.get(i).GetItem() != null) {
+				batch.draw(inv.get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);					
 			}
 		}
 	}
 	
 	private void drawEquipment(SpriteBatch batch) {
-		for(int i = 0; i < storage.GetEquipment().length; i++) {
+		Cell[] equipment = storage.GetEquipment();
+		for(int i = 0; i < equipment.length; i++) {
 			cellSprite.SetPosition(48*(i+1), 50);
 			cellSprite.SetColor(new Color(0.0f, 0.0f, 1.0f, 1.0f));
 			if(new Rectangle((int)MousePositionHandler.getX(), (int)MousePositionHandler.getY(), 1, 1).intersects(new Rectangle(48*(i+1), 50, 32, 32))) {
 				cellSprite.SetColor(new Color(0.0f, 0.5f, 1.0f, 1.0f));
 				if(MouseHandler.isMousePressed(0)) {
-					onItemClick(storage.GetEquipment()[i]);
+					onItemClick(equipment[i]);
 				}
 			}
 			cellSprite.draw(batch);
-			if(storage.GetEquipment()[i].GetItem() != null) {
-				batch.draw(storage.GetEquipment()[i].GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);
+			if(equipment[i].GetItem() != null) {
+				batch.draw(equipment[i].GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);
 			}
 			
 		}

@@ -2,6 +2,7 @@ package com.last2424.game.gui;
 
 import java.awt.Color;
 import java.awt.Rectangle;
+import java.util.List;
 
 import org.lwjgl.glfw.GLFW;
 
@@ -34,7 +35,8 @@ public class MerchantGUI {
 	
 	private void drawInventory(SpriteBatch batch, Storage storage, float offset, boolean mouseHandle) {
 		int j = 1, k = 1;
-		for(int i = 0; i < storage.GetInventory().size(); i++) {
+		List<Cell> inv = storage.GetInventory();
+		for(int i = 0; i < inv.size(); i++) {
 			
 			if(i % 5 == 0) {
 				j++;
@@ -50,7 +52,7 @@ public class MerchantGUI {
 					cellSprite.SetColor(new Color(1.0f, 0.0f, 0.0f, 1.0f));
 				
 					if(MouseHandler.isMousePressed(0)) {
-						onItemClick(storage.GetInventory().get(i));
+						onItemClick(inv.get(i));
 					}
 				
 				}
@@ -59,8 +61,8 @@ public class MerchantGUI {
 			cellSprite.draw(batch);
 			k++;
 			
-			if(storage.GetInventory().get(i).GetItem() != null) {
-				batch.draw(storage.GetInventory().get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);					
+			if(inv.get(i).GetItem() != null) {
+				batch.draw(inv.get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);					
 			}
 		}
 	}
