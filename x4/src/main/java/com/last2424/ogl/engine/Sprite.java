@@ -15,28 +15,30 @@ public class Sprite {
 	Color color;
 	Vector2f position;
 	Vector2f size;
+	public int layer;
 	
-	public Sprite(String path) {
-		this(Texture.loadTexture(path));
+	public Sprite(String path, int layer) {
+		this(Texture.loadTexture(path), layer);
 	}
 	
-	public Sprite(Texture texture) {
-		this(texture, new Color(1.0f, 1.0f, 1.0f, 1.0f), new Vector2f(0, 0), new Vector2f(texture.getWidth(), texture.getHeight()));
+	public Sprite(Texture texture, int layer) {
+		this(texture, new Color(1.0f, 1.0f, 1.0f, 1.0f), new Vector2f(0, 0), new Vector2f(texture.getWidth(), texture.getHeight()), layer);
 	}
 	
-	public Sprite(String path, Color color, Vector2f position, Vector2f size) {
-		this(Texture.loadTexture(path), color, position, size);
+	public Sprite(String path, Color color, Vector2f position, Vector2f size, int layer) {
+		this(Texture.loadTexture(path), color, position, size, layer);
 	}
 	
-	public Sprite(Texture texture, Color color, Vector2f position, Vector2f size) {
-		this(new TextureRegion(texture, new Vector2f(0, 0), new Vector2f(texture.getWidth(), texture.getHeight())), color, position, size);
+	public Sprite(Texture texture, Color color, Vector2f position, Vector2f size, int layer) {
+		this(new TextureRegion(texture, new Vector2f(0, 0), new Vector2f(texture.getWidth(), texture.getHeight())), color, position, size, layer);
 	}
 	
-	public Sprite(TextureRegion texture, Color color, Vector2f position, Vector2f size) {
+	public Sprite(TextureRegion texture, Color color, Vector2f position, Vector2f size, int layer) {
 		this.texture = texture;
 		this.color = color;
 		this.position = position;
 		this.size = size;
+		this.layer = layer;
 	}
 	
 	public void SetPosition(float x, float y) {
@@ -61,9 +63,9 @@ public class Sprite {
 	}
 	
 	public void draw(SpriteBatch batch) {
-		batch.draw(texture, (int)position.x, (int)position.y, (int)size.x, (int)size.y, (float)color.getRed()/255, (float)color.getGreen()/255, (float)color.getBlue()/255, (float)color.getAlpha()/255);
+		batch.draw(texture, (int)position.x, (int)position.y, (int)size.x, (int)size.y, (float)color.getRed()/255, (float)color.getGreen()/255, (float)color.getBlue()/255, (float)color.getAlpha()/255, layer);
 	}
-
+	
 	public Vector2f GetPosition() {
 		return this.position;
 	}

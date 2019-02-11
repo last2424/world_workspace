@@ -32,7 +32,8 @@ public class Start {
 	private GLFWKeyCallback keyCallback;
 	private GLFWMouseButtonCallback mouseButtonCallBack;
 	private GLFWCursorPosCallback cursorPosCallback;
-	public int width, height;
+	public static int width;
+	public static int height;
 	private boolean resized = true;
 	public boolean running = true;
 
@@ -119,12 +120,17 @@ public class Start {
 				GL11.glViewport(0, 0, width, height);
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-				glOrtho(0, width, height, 0, 1, -1);
+				glOrtho(0, width, height, 0, -1, 1);
+				
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
 				glEnable(GL_TEXTURE_2D);
 				glEnable(GL11.GL_BLEND);
+				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				glEnable(GL11.GL_ALPHA_TEST); 
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+	            GL11.glDepthFunc(GL11.GL_LESS);
+				GL11.glAlphaFunc(GL11.GL_NOTEQUAL, 0);
 				resized = false;
 			}
 

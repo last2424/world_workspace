@@ -1,5 +1,6 @@
 package com.last2424.game.entities;
 
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 

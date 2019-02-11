@@ -29,7 +29,7 @@ public class DialogGUI {
 	boolean startShop;
 	
 	public DialogGUI() {
-		dialogBackground = new Sprite("dialogBox.png");
+		dialogBackground = new Sprite("dialogBox.png", 10);
 		dialogBackground.SetPosition(100, 350);
 		font = new Font("Times New Roman", Font.BOLD, 21);
 		trueFont = new TrueTypeFont(font, true);

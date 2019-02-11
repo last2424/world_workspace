@@ -15,6 +15,8 @@ import com.last2424.game.gui.PlayerInfoGUI;
 import com.last2424.game.mechanics.items.Item;
 import com.last2424.game.world.Tree;
 import com.last2424.game.world.Tree.TreeType;
+import com.last2424.game.world.houses.HouseSimple;
+import com.last2424.game.world.houses.MayorHouse;
 import com.last2424.game.mechanics.items.Cell.ItemType;
 import com.last2424.ogl.Start;
 import com.last2424.ogl.engine.Sprite;
@@ -44,6 +46,7 @@ public class MainScene implements Scene {
 	Animation testAnimation;
 	
 	Tree testTree;
+	public static MayorHouse testHouse;
 	
 	@Override
 	public void create() {
@@ -51,7 +54,7 @@ public class MainScene implements Scene {
 		batch.setWindowColor(0.5f, 0.7f, 0.95f, 1.0f);
 		System.out.println(Start.class.getProtectionDomain().getCodeSource().getLocation().getPath());
 		testItem = new Item(new TextureRegion("swords.png", new Vector2f(0, 0), new Vector2f(32, 32)), "Test", ItemType.WEAPON, 10, 5);
-		player = new EntityPlayer("Player", 0, 5, 5, 5, EntityType.PLAYER, new Sprite(new TextureRegion(Texture.loadTexture("swords.png"), new Vector2f(32, 0), new Vector2f(32, 32)), new Color(1.0f, 1.0f, 1.0f, 1.0f), new Vector2f(100, 100), new Vector2f(32, 32)));
+		player = new EntityPlayer("Player", 0, 5, 5, 5, EntityType.PLAYER, new Sprite(new TextureRegion(Texture.loadTexture("swords.png"), new Vector2f(32, 0), new Vector2f(32, 32)), new Color(1.0f, 1.0f, 1.0f, 1.0f), new Vector2f(100, 100), new Vector2f(32, 32), 0));
 		player.GetStorage().AddItem(testItem);
 		invGUI = new InventoryGUI(player.GetStorage());
 		infoGUI = new PlayerInfoGUI(player);
@@ -60,6 +63,8 @@ public class MainScene implements Scene {
 		dialogSystem = new Dialogs();
 		dialogSystem.createDialogs();
 		settingsKeys = new KeyboardSettings();
+		
+		testHouse = new MayorHouse(new Vector2f(300, 100));
 		
 		testAnimation = new Animation(new ConfigJSON("test.json"));
 		
@@ -82,10 +87,13 @@ public class MainScene implements Scene {
 	@Override
 	public void render() {
 		batch.clearWindow();
+		testTree.drawLayer(0, batch);
 		testTree.drawLayer(1, batch);
+		testHouse.drawLayer(0, batch);
+		testHouse.drawLayer(1, batch);
 		characters.draw(batch);
 		player.draw(batch);
-		testTree.drawLayer(0, batch);
+		
 		if(!player.merchantOpened) dialogSystem.dialogGUI.draw(batch);
 		if(player.inventoryOpened) invGUI.draw(batch);
 		if(player.infoOpened) infoGUI.draw(batch);

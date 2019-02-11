@@ -17,14 +17,14 @@ public class Tree {
 		this.lowPosition = new Vector2f(position.x, position.y + 50);
 		if(type == TreeType.NORMAL) {
 			sprites[0] = new Sprite(new TextureRegion("test/trees/blue.png", new Vector2f(0, 0), new Vector2f(53, 55)), 
-					Color.WHITE, this.position, new Vector2f(53, 55));
+					Color.WHITE, this.position, new Vector2f(53, 55), 1);
 			sprites[1] = new Sprite(new TextureRegion("test/trees/blue.png", new Vector2f(0, 55), new Vector2f(53, 19)), 
-					Color.WHITE, this.lowPosition, new Vector2f(53, 19));
+					Color.WHITE, this.lowPosition, new Vector2f(53, 19), -1);
 		}else if(type == TreeType.RED) {
 			sprites[0] = new Sprite(new TextureRegion("test/trees/red.png", new Vector2f(0, 0), new Vector2f(53, 55)), 
-					Color.WHITE, this.position, new Vector2f(53, 55));
+					Color.WHITE, this.position, new Vector2f(53, 55), 1);
 			sprites[1] = new Sprite(new TextureRegion("test/trees/red.png", new Vector2f(0, 55), new Vector2f(53, 19)), 
-					Color.WHITE, this.lowPosition, new Vector2f(53, 19));
+					Color.WHITE, this.lowPosition, new Vector2f(53, 19), -1);
 		}
 	}
 	
@@ -41,8 +41,8 @@ public class Tree {
 		return position;
 	}
 	
-	public void drawLayer(int layer, SpriteBatch batch) {
-		sprites[layer].draw(batch);
+	public void drawLayer(int index, SpriteBatch batch) {
+		sprites[index].draw(batch);
 	}
 	
 	public enum TreeType {

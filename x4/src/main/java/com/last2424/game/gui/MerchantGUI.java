@@ -25,7 +25,7 @@ public class MerchantGUI {
 	public MerchantGUI(Storage playerStorage, Storage merchantStorage) {
 		this.playerStorage = playerStorage;
 		this.merchantStorage = merchantStorage;
-		cellSprite = new Sprite("test.png");
+		cellSprite = new Sprite("test.png", 10);
 	}
 	
 	public void draw(SpriteBatch batch) {
@@ -62,7 +62,7 @@ public class MerchantGUI {
 			k++;
 			
 			if(inv.get(i).GetItem() != null) {
-				batch.draw(inv.get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f);					
+				batch.draw(inv.get(i).GetItem().GetIcon(), (int)cellSprite.GetPosition().x, (int)cellSprite.GetPosition().y, 32, 32, 1.0f, 1.0f, 1.0f, 1.0f, 10);					
 			}
 		}
 	}

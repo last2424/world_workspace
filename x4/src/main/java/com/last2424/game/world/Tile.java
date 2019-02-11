@@ -12,8 +12,8 @@ public class Tile {
 	
 	TileConfig config;
 	
-	public Tile(int id, String tileName, TileConfig config, String path) {
-		this(id, tileName, config, new Sprite(path));
+	public Tile(int id, String tileName, TileConfig config, String path, int layer) {
+		this(id, tileName, config, new Sprite(path, layer));
 	}
 	
 	public Tile(int id, String tileName, TileConfig config, Sprite sprite) {

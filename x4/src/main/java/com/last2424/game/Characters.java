@@ -27,7 +27,7 @@ public class Characters {
 		}
 		
 		public void initializeNPC() {
-			testNPC = new EntityNPC("Test", 1, 1, 1, 1, EntityType.HUMANS, new Sprite("test.png"), Relationships.NEUTRAL);
+			testNPC = new EntityNPC("Test", 1, 1, 1, 1, EntityType.HUMANS, new Sprite("test.png", 0), Relationships.NEUTRAL);
 			testNPC.SetPosition(200, 200);
 			testNPC.SetBehaviour(new ABMoveBehaviour(true));
 			ABMoveBehaviour behaviour = (ABMoveBehaviour) testNPC.GetBehaviour();

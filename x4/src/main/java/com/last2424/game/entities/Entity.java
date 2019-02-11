@@ -1,6 +1,7 @@
 package com.last2424.game.entities;
 
 import java.awt.Color;
+import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,5 +112,10 @@ public class Entity {
 	
 	public String GetName() {
 		return this.name;
+	}
+	
+
+	public Rectangle GetRectangle() {
+		return new Rectangle((int)GetPosition().x, (int)GetPosition().y, (int)GetSize().x, (int)GetSize().y);
 	}
 }
