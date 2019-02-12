@@ -15,11 +15,11 @@ public class KeyboardSettings {
 			glfwSetWindowShouldClose(Start.window, true);
 		}
 		
-		if(KeyboardHandler.isKeyPressed(GLFW.GLFW_KEY_I) && !MainScene.allStoped) {
+		if(KeyboardHandler.isKeyPressed(GLFW.GLFW_KEY_I) && (MainScene.player.inventoryOpened || !MainScene.allStoped)) {
 			MainScene.player.inventoryOpened = !MainScene.player.inventoryOpened;
 		}
 		
-		if(KeyboardHandler.isKeyPressed(GLFW.GLFW_KEY_B) && !MainScene.allStoped) {
+		if(KeyboardHandler.isKeyPressed(GLFW.GLFW_KEY_B) && (MainScene.player.infoOpened || !MainScene.allStoped)) {
 			MainScene.player.infoOpened = !MainScene.player.infoOpened;
 		}
 		

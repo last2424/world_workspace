@@ -37,6 +37,10 @@ public class SpriteBatch {
 		Vector2f regionPos = texture.regionPos, regionSize = texture.regionSize;
 		//glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
 		texture.GetTexture().bind();
+		// Draw stuff
+
+		glPushMatrix();
+		glTranslatef(0, 0, layer);
 		glBegin(GL_QUADS);
 		setColor(red, green, blue, alpha);
 		glTexCoord3f(regionPos.x/widthTexture, regionPos.y/heightTexture, layer);
@@ -49,6 +53,7 @@ public class SpriteBatch {
 		glVertex2f(x, y+height);
 		glEnd();
 		glFlush();
+		glPopMatrix();
 	}
 	
 }

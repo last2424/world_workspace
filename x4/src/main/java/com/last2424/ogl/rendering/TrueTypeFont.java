@@ -22,7 +22,9 @@ import org.lwjgl.opengl.GL11;
 import static org.lwjgl.glfw.GLFW.glfwGetCurrentContext;
 import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
 import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTranslatef;
 
 public class TrueTypeFont {
 public final static int
@@ -208,13 +210,13 @@ private void drawQuad(float drawX, float drawY, float drawX2, float drawY2,
     float RenderHeight = (SrcHeight / textureHeight);
 
     GL11.glTexCoord2f(TextureSrcX, TextureSrcY + RenderHeight);
-    GL11.glVertex2f(drawX, drawY + DrawHeight);
+    GL11.glVertex3f(drawX, drawY + DrawHeight, 10);
     GL11.glTexCoord2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight);
-    GL11.glVertex2f(drawX + DrawWidth, drawY + DrawHeight);
+    GL11.glVertex3f(drawX + DrawWidth, drawY + DrawHeight, 10);
     GL11.glTexCoord2f(TextureSrcX + RenderWidth, TextureSrcY);
-    GL11.glVertex2f(drawX + DrawWidth, drawY);
+    GL11.glVertex3f(drawX + DrawWidth, drawY, 10);
     GL11.glTexCoord2f(TextureSrcX, TextureSrcY);
-    GL11.glVertex2f(drawX, drawY);
+    GL11.glVertex3f(drawX, drawY, 10);
 }
 
 public int getWidth(String whatchars) {
@@ -308,6 +310,8 @@ public void drawString(float x, float y,
     }
 
     GL11.glBindTexture(GL11.GL_TEXTURE_2D, fontTextureID);
+    glPushMatrix();
+	glTranslatef(0, 0, 10);
     GL11.glBegin(GL11.GL_QUADS);
 
     while (i >= startIndex && i <= endIndex) {
@@ -351,6 +355,8 @@ public void drawString(float x, float y,
         }
     }
     GL11.glEnd();
+    GL11.glFlush();
+    GL11.glPopMatrix();
 }
 public static int loadImage(BufferedImage bufferedImage) {
     try {

@@ -1,5 +1,6 @@
 package com.last2424.ogl;
 
+import org.joml.Matrix4f;
 import org.lwjgl.*;
 import org.lwjgl.glfw.*;
 import org.lwjgl.opengl.*;
@@ -37,7 +38,7 @@ public class Start {
 	private boolean resized = true;
 	public boolean running = true;
 
-	public Timer timer;
+	public static Timer timer;
 	
 	public void run(Logic logic) {
 		System.out.println("LWJGL " + Version.getVersion() + "!");
@@ -113,6 +114,7 @@ public class Start {
 		logic.create();
 		while(running) {
 			if(resized) {
+				
 				IntBuffer widthBuffer = BufferUtils.createIntBuffer(1), heightBuffer = BufferUtils.createIntBuffer(1);
 				glfwGetWindowSize(window, widthBuffer, heightBuffer);
 				width = widthBuffer.get(0);
@@ -120,7 +122,7 @@ public class Start {
 				GL11.glViewport(0, 0, width, height);
 				glMatrixMode(GL_PROJECTION);
 				glLoadIdentity();
-				glOrtho(0, width, height, 0, -1, 1);
+				glOrtho(0, width, height, 0, -50, 50);
 				
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
@@ -129,7 +131,7 @@ public class Start {
 				GL11.glEnable(GL11.GL_DEPTH_TEST);
 				glEnable(GL11.GL_ALPHA_TEST); 
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-	            GL11.glDepthFunc(GL11.GL_LESS);
+	            GL11.glDepthFunc(GL11.GL_LEQUAL);
 				GL11.glAlphaFunc(GL11.GL_NOTEQUAL, 0);
 				resized = false;
 			}

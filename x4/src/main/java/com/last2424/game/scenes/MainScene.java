@@ -9,6 +9,7 @@ import com.last2424.game.Dialogs;
 import com.last2424.game.KeyboardSettings;
 import com.last2424.game.entities.EntityPlayer;
 import com.last2424.game.entities.Entity.EntityType;
+import com.last2424.game.gui.GameInformationGUI;
 import com.last2424.game.gui.InventoryGUI;
 import com.last2424.game.gui.MerchantGUI;
 import com.last2424.game.gui.PlayerInfoGUI;
@@ -38,6 +39,7 @@ public class MainScene implements Scene {
 	
 	InventoryGUI invGUI;
 	PlayerInfoGUI infoGUI;
+	GameInformationGUI gameInfoGui;
 	
 	Item testItem;
 	Sprite testItemIcon;
@@ -58,6 +60,7 @@ public class MainScene implements Scene {
 		player.GetStorage().AddItem(testItem);
 		invGUI = new InventoryGUI(player.GetStorage());
 		infoGUI = new PlayerInfoGUI(player);
+		gameInfoGui = new GameInformationGUI();
 		characters = new Characters();
 		characters.initializeNPC();
 		dialogSystem = new Dialogs();
@@ -87,10 +90,8 @@ public class MainScene implements Scene {
 	@Override
 	public void render() {
 		batch.clearWindow();
-		testTree.drawLayer(0, batch);
-		testTree.drawLayer(1, batch);
-		testHouse.drawLayer(0, batch);
-		testHouse.drawLayer(1, batch);
+		testTree.draw(batch);
+		testHouse.draw(batch);
 		characters.draw(batch);
 		player.draw(batch);
 		
@@ -98,6 +99,7 @@ public class MainScene implements Scene {
 		if(player.inventoryOpened) invGUI.draw(batch);
 		if(player.infoOpened) infoGUI.draw(batch);
 		if(player.merchantOpened) currentMerchant.draw(batch);
+		gameInfoGui.draw();
 	}
 
 }

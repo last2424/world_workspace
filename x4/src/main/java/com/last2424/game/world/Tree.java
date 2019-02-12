@@ -41,8 +41,10 @@ public class Tree {
 		return position;
 	}
 	
-	public void drawLayer(int index, SpriteBatch batch) {
-		sprites[index].draw(batch);
+	public void draw(SpriteBatch batch) {
+		for(int i = 0; i < sprites.length; i++) {
+			sprites[i].draw(batch);
+		}
 	}
 	
 	public enum TreeType {
