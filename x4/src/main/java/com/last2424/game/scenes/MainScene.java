@@ -23,6 +23,7 @@ import com.last2424.game.mechanics.items.Cell.ItemType;
 import com.last2424.ogl.Start;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.engine.animation.Animation;
+import com.last2424.ogl.engine.animation.ConfigCUT;
 import com.last2424.ogl.engine.animation.ConfigJSON;
 import com.last2424.ogl.engine.scene.Scene;
 import com.last2424.ogl.rendering.SpriteBatch;
@@ -46,7 +47,7 @@ public class MainScene implements Scene {
 	Sprite testItemIcon;
 	KeyboardSettings settingsKeys;
 	
-	Animation testAnimation;
+	Animation testPlayerAnimation;
 	
 	Tree testTree;
 	public static MayorHouse testHouse;
@@ -57,8 +58,8 @@ public class MainScene implements Scene {
 		batch = new SpriteBatch();
 		batch.setWindowColor(0.5f, 0.7f, 0.95f, 1.0f);
 		System.out.println(Start.class.getProtectionDomain().getCodeSource().getLocation().getPath());
-		testItem = new Item(new TextureRegion("swords.png", new Vector2f(0, 0), new Vector2f(32, 32)), "Test", ItemType.WEAPON, 10, 5);
-		player = new EntityPlayer("Player", 0, 5, 5, 5, EntityType.PLAYER, new Sprite(new TextureRegion(Texture.loadTexture("swords.png"), new Vector2f(32, 0), new Vector2f(32, 32)), new Color(1.0f, 1.0f, 1.0f, 1.0f), new Vector2f(100, 100), new Vector2f(32, 32), 0));
+		testItem = new Item(new TextureRegion("swords.png", new Vector2f(0, 32), new Vector2f(32, 32)), "Test", ItemType.WEAPON, 10, 5);
+		player = new EntityPlayer();
 		player.GetStorage().AddItem(testItem);
 		invGUI = new InventoryGUI(player.GetStorage());
 		infoGUI = new PlayerInfoGUI(player);
@@ -71,8 +72,7 @@ public class MainScene implements Scene {
 		
 		testHouse = new MayorHouse(new Vector2f(300, 100));
 		testPillars = new Pillars("Pillars", new Vector2f(testHouse.position.x+4, testHouse.position.y+156));
-		
-		testAnimation = new Animation(new ConfigJSON("test.json"));
+		testPlayerAnimation = new Animation(new ConfigCUT(Texture.loadTexture("char/Pen/down-move.png"), 4, 1, 1/5f));
 		
 		testTree = new Tree(TreeType.NORMAL, new Vector2f(100, 150));
 	}
@@ -82,11 +82,10 @@ public class MainScene implements Scene {
 		if(!allStoped) {
 			characters.update(delta);
 			dialogSystem.update(player);
-			player.GetSprite().SetFrame(testAnimation.GetFrame());
+			player.GetSprite(0).SetFrame(testPlayerAnimation.GetFrame());
 			testPillars.update();
 		}
-		testAnimation.update(delta);
-		testItem.SetFrame(testAnimation.GetFrame());
+		testPlayerAnimation.update(delta);
 		
 		settingsKeys.update();
 	}

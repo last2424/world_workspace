@@ -24,11 +24,12 @@ public class Animation {
 	public void update(float delta) {
 		if(currentDelay <= 0) {
 			currentPos++;
-			currentDelay = delta;
+			currentDelay = delay;
 		}
 		
 		if(currentPos >= frames.length) {
 			currentPos = 0;
+			currentDelay = delay;
 		}
 		currentDelay -= delta;
 	}

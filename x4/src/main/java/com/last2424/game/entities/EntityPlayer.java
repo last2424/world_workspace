@@ -1,5 +1,6 @@
 package com.last2424.game.entities;
 
+import java.awt.Color;
 import java.awt.Rectangle;
 import java.util.List;
 
@@ -11,13 +12,15 @@ import com.last2424.ogl.engine.GameMath;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.input.KeyboardHandler;
 import com.last2424.ogl.input.MousePositionHandler;
+import com.last2424.ogl.rendering.TextureRegion;
 
 public class EntityPlayer extends Entity {
 
 	public boolean inventoryOpened = false, infoOpened = false, merchantOpened = false;
 	
-	public EntityPlayer(String name, int lvl, int strength, int dexterity, int intelegence, EntityType entityType, Sprite sprite) {
-		super(name, lvl, strength, dexterity, intelegence, entityType, sprite);
+	public EntityPlayer() {
+		super("Player", 0, 5, 5, 5, EntityType.PLAYER, new Sprite[1], new Vector2f(100, 100), new Vector2f(64, 64));
+		this.sprite[0] = new Sprite(new TextureRegion("char/Pen/side-move.png", new Vector2f(0, 0), new Vector2f(32, 32)), Color.WHITE, this.position, this.size, 0);
 	}
 	
 	@Override
@@ -27,10 +30,10 @@ public class EntityPlayer extends Entity {
 		tempPosition.set(this.GetPosition().x, this.GetPosition().y);
 		
 		if(KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_UP)) {
-			moveY = -this.GetMoveSpeed();
+			moveY = -this.GetMoveSpeed()*delta-2;
 		}
 		if(KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_DOWN)) {
-			moveY = this.GetMoveSpeed();
+			moveY = this.GetMoveSpeed()*delta+2;
 		}
 		
 		this.SetPosition(this.GetPosition().x, this.GetPosition().y+moveY);
@@ -40,10 +43,10 @@ public class EntityPlayer extends Entity {
 		}
 		
 		if(KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_LEFT)) {
-			moveX = -this.GetMoveSpeed();
+			moveX = -this.GetMoveSpeed()*delta-2;
 		}
 		if(KeyboardHandler.isKeyDown(GLFW.GLFW_KEY_RIGHT)) {
-			moveX = this.GetMoveSpeed();
+			moveX = this.GetMoveSpeed()*delta+2;
 		}
 		
 		this.SetPosition(this.GetPosition().x+moveX, this.GetPosition().y);

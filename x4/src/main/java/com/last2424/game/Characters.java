@@ -1,5 +1,6 @@
 package com.last2424.game;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,8 +28,9 @@ public class Characters {
 		}
 		
 		public void initializeNPC() {
-			testNPC = new EntityNPC("Test", 1, 1, 1, 1, EntityType.HUMANS, new Sprite("test.png", 0), Relationships.NEUTRAL);
+			testNPC = new EntityNPC("Test", 1, 1, 1, 1, EntityType.HUMANS, new Sprite[1], Relationships.NEUTRAL, new Vector2f(), new Vector2f(32, 32));
 			testNPC.SetPosition(200, 200);
+			testNPC.sprite[0] = new Sprite("test.png", Color.WHITE, testNPC.GetPosition(), testNPC.GetSize(), 0);
 			testNPC.SetBehaviour(new ABMoveBehaviour(true));
 			ABMoveBehaviour behaviour = (ABMoveBehaviour) testNPC.GetBehaviour();
 			behaviour.AddPoint(new Point(new Vector2f(100, 100)));

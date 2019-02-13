@@ -4,6 +4,8 @@ import java.awt.Rectangle;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joml.Vector2f;
+
 import com.last2424.game.Logic;
 import com.last2424.game.behaviors.AttackBehaviour;
 import com.last2424.game.behaviors.Behaviour;
@@ -28,8 +30,8 @@ public class EntityNPC extends Entity {
 
 	
 	public EntityNPC(String name, int lvl, int strength, int dexterity, int intelegence, EntityType entityType,
-			Sprite sprite, Relationships relationship) {
-		super(name, lvl, strength, dexterity, intelegence, entityType, sprite);
+			Sprite[] sprite, Relationships relationship, Vector2f position, Vector2f size) {
+		super(name, lvl, strength, dexterity, intelegence, entityType, sprite, position, size);
 		this.relationship = relationship;
 		attackBehaviour = new AttackBehaviour();
 		entitiesArroundMe = new ArrayList<Entity>();

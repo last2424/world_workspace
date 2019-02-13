@@ -27,13 +27,14 @@ public class Entity {
 	private int strength, dexterity, intelegence; //RGB System
 	private int hp, max_hp = 100, energy, max_energy = 100,  damage, defence, move_speed;
 	
-	Sprite sprite;
+	public Sprite[] sprite;
+	Vector2f position, size;
 	
 	public int money;
 	
 	Vector2f tempPosition = new Vector2f();
 
-	public Entity(String name, int lvl, int strength, int dexterity, int intelegence, EntityType entityType, Sprite sprite) {
+	public Entity(String name, int lvl, int strength, int dexterity, int intelegence, EntityType entityType, Sprite[] sprite, Vector2f position, Vector2f size) {
 		this.name = name;
 		this.storage = new Storage();
 		this.skills = new Skill();
@@ -43,6 +44,8 @@ public class Entity {
 		this.intelegence = intelegence;
 		this.lvl = lvl;
 		this.sprite = sprite;
+		this.position = position;
+		this.size = size;
 		StatRecalculation();
 	}
 	
@@ -65,7 +68,9 @@ public class Entity {
 	}
 	
 	public void draw(SpriteBatch batch) {
-		sprite.draw(batch);
+		for(int i = 0; i < sprite.length; i++) {
+			sprite[i].draw(batch);
+		}
 	}
 
 	public enum EntityType {
@@ -94,15 +99,15 @@ public class Entity {
 	}
 	
 	public void SetPosition(float x, float y) {
-		this.sprite.SetPosition(x, y);
+		this.position.set(x, y);
 	}
 	
 	public Vector2f GetPosition() {
-		return this.sprite.GetPosition();
+		return this.position;
 	}
 	
-	public Sprite GetSprite() {
-		return this.sprite;
+	public Sprite GetSprite(int index) {
+		return this.sprite[index];
 	}
 	
 	public float GetMoveSpeed() {
@@ -110,7 +115,7 @@ public class Entity {
 	}
 
 	public Vector2f GetSize() {
-		return sprite.GetSize();
+		return size;
 	}
 	
 	public String GetName() {
