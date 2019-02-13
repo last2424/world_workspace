@@ -16,6 +16,7 @@ import com.last2424.game.gui.PlayerInfoGUI;
 import com.last2424.game.mechanics.items.Item;
 import com.last2424.game.world.Tree;
 import com.last2424.game.world.Tree.TreeType;
+import com.last2424.game.world.environment.Pillars;
 import com.last2424.game.world.houses.HouseSimple;
 import com.last2424.game.world.houses.MayorHouse;
 import com.last2424.game.mechanics.items.Cell.ItemType;
@@ -49,6 +50,7 @@ public class MainScene implements Scene {
 	
 	Tree testTree;
 	public static MayorHouse testHouse;
+	public static Pillars testPillars;
 	
 	@Override
 	public void create() {
@@ -68,6 +70,7 @@ public class MainScene implements Scene {
 		settingsKeys = new KeyboardSettings();
 		
 		testHouse = new MayorHouse(new Vector2f(300, 100));
+		testPillars = new Pillars("Pillars", new Vector2f(testHouse.position.x+4, testHouse.position.y+156));
 		
 		testAnimation = new Animation(new ConfigJSON("test.json"));
 		
@@ -80,6 +83,7 @@ public class MainScene implements Scene {
 			characters.update(delta);
 			dialogSystem.update(player);
 			player.GetSprite().SetFrame(testAnimation.GetFrame());
+			testPillars.update();
 		}
 		testAnimation.update(delta);
 		testItem.SetFrame(testAnimation.GetFrame());
@@ -92,6 +96,7 @@ public class MainScene implements Scene {
 		batch.clearWindow();
 		testTree.draw(batch);
 		testHouse.draw(batch);
+		testPillars.draw(batch);
 		characters.draw(batch);
 		player.draw(batch);
 		

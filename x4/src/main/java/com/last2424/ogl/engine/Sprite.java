@@ -11,8 +11,8 @@ import com.last2424.ogl.rendering.TextureRegion;
 
 public class Sprite {
 	
-	TextureRegion texture;
-	Color color;
+	public TextureRegion texture;
+	public Color color;
 	Vector2f position;
 	Vector2f size;
 	public int layer;

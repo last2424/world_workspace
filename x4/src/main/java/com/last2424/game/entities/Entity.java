@@ -10,6 +10,7 @@ import org.joml.Vector2f;
 import com.last2424.game.entities.EntityNPC.Relationships;
 import com.last2424.game.mechanics.Skill;
 import com.last2424.game.mechanics.items.Storage;
+import com.last2424.ogl.engine.GameMath;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.rendering.SpriteBatch;
 
@@ -29,6 +30,8 @@ public class Entity {
 	Sprite sprite;
 	
 	public int money;
+	
+	Vector2f tempPosition = new Vector2f();
 
 	public Entity(String name, int lvl, int strength, int dexterity, int intelegence, EntityType entityType, Sprite sprite) {
 		this.name = name;
@@ -114,6 +117,23 @@ public class Entity {
 		return this.name;
 	}
 	
+	public void checkCollision(boolean xAxis, boolean yAxis, Rectangle zone) {
+			if(GameMath.Intersects(this.GetRectangle(), zone)) {
+				if(xAxis) {
+					if((this.GetRectangle().getMinX() <= zone.getMaxX()) 
+					|| (this.GetRectangle().getMaxX() >= zone.getMinX())) {
+						this.SetPosition(tempPosition.x, this.GetPosition().y);
+					}
+				}
+				
+				if(yAxis) {
+					if((this.GetRectangle().getMinY() <= zone.getMaxY()) 
+					|| (this.GetRectangle().getMaxY() >= zone.getMinY())) {
+						this.SetPosition(this.GetPosition().x, tempPosition.y);
+					}
+				}
+			}
+	}
 
 	public Rectangle GetRectangle() {
 		return new Rectangle((int)GetPosition().x, (int)GetPosition().y, (int)GetSize().x, (int)GetSize().y);
