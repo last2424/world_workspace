@@ -2,7 +2,7 @@ package com.last2424.ogl.input;
 
 import org.lwjgl.glfw.GLFWKeyCallback;
 
-import com.last2424.ogl.Start;
+import com.last2424.ogl.Window;
 
 import static org.lwjgl.glfw.GLFW.*;
 

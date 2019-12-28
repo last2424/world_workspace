@@ -1,5 +1,7 @@
 package com.last2424.ogl.rendering;
 
+import java.io.IOException;
+
 import org.joml.Vector2f;
 
 public class TextureRegion {
@@ -8,8 +10,8 @@ public class TextureRegion {
 	Vector2f regionPos;
 	Vector2f regionSize;
 	
-	public TextureRegion(String path, Vector2f regionPos, Vector2f regionSize) {
-		this(Texture.loadTexture(path), regionPos, regionSize);
+	public TextureRegion(String path, Vector2f regionPos, Vector2f regionSize) throws IOException {
+		this(new Texture(path), regionPos, regionSize);
 	}
 	
 	public TextureRegion(Texture texture, Vector2f regionPos, Vector2f regionSize) {

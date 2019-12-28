@@ -208,7 +208,6 @@ private void drawQuad(float drawX, float drawY, float drawX2, float drawY2,
     float SrcHeight = srcY2 - srcY;
     float RenderWidth = (SrcWidth / textureWidth);
     float RenderHeight = (SrcHeight / textureHeight);
-
     GL11.glTexCoord2f(TextureSrcX, TextureSrcY + RenderHeight);
     GL11.glVertex3f(drawX, drawY + DrawHeight, 10);
     GL11.glTexCoord2f(TextureSrcX + RenderWidth, TextureSrcY + RenderHeight);

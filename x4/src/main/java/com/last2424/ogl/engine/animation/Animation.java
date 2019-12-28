@@ -1,27 +1,33 @@
 package com.last2424.ogl.engine.animation;
 
-import org.joml.Vector2f;
+
+import com.last2424.ogl.rendering.Texture;
 
 
 public class Animation {
 	
 	float delay, currentDelay;
 	Frame[] frames;
-	int currentPos;
+	int currentPos = 0;
+	public Texture texture;
+	public boolean isDebug = false;
+	
 	public Animation(Config config) {
-		if(config instanceof ConfigCUT) {
-			delay = ((ConfigCUT) config).delay;
-		}
-		
 		if(config instanceof ConfigJSON) {
-			String str = (String) ((ConfigJSON) config).json.get("delay");
-			delay = 1f/new Float(str);
+			Long d = (Long)((ConfigJSON) config).json.get("delay");
+			delay = 1f/new Float(d);
+			texture = ((ConfigJSON) config).texture;
 		}
 		currentDelay = delay;
 		frames = config.GenerateFrames();
 	}
 	
 	public void update(float delta) {
+		if (isDebug) {
+			System.out.println(frames.length);
+			System.out.println(currentPos);
+		}
+		
 		if(currentDelay <= 0) {
 			currentPos++;
 			currentDelay = delay;
@@ -38,6 +44,11 @@ public class Animation {
 		return frames[currentPos];
 	}
 	
+	public Frame GetFrame(int pos) {
+		currentPos = pos;
+		return frames[pos];
+	}
+	
 	public enum AnimationType {
 		JSON(true),
 		CUT(false);
@@ -48,11 +59,11 @@ public class Animation {
 			this.type = type;
 		}
 		
-		public boolean getMultiplier() {
+		public boolean getType() {
 	        return this.type;
 	    }
 		
-		public void setMultiplier(boolean type) {
+		public void setType(boolean type) {
 			this.type = type;
 		}
 	}
