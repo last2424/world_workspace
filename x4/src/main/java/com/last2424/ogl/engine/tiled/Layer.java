@@ -10,7 +10,7 @@ public interface Layer {
 	
 	public void initializateData(JSONArray data);
 
-	public ArrayList<Integer> getData();
+	public int[] getData();
 	
 	public int getGameLayer();
 

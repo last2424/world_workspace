@@ -13,7 +13,7 @@ public class ObjectLayer implements Layer {
 	}
 
 	@Override
-	public ArrayList<Integer> getData() {
+	public int[] getData() {
 		// TODO Auto-generated method stub
 		return null;
 	}

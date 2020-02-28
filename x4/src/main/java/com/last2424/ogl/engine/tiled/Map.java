@@ -29,7 +29,6 @@ public class Map {
 	private int mapWidth, mapHeight;
 	
 	public Map() {
-		tileset = new Tileset();
 		layers = new ArrayList<Layer>();
 	}
 	
@@ -57,10 +56,18 @@ public class Map {
 		try {
 			JSONParser parser = new JSONParser();
 			JSONArray json = (JSONArray) parser.parse(object.toString());
+			int countTiles = 0;
+			for (int i = 0; i < json.size(); i++) {
+				JSONObject obj = (JSONObject) parser.parse(json.get(i).toString());
+				countTiles += Integer.parseInt(obj.get("tilecount").toString());
+			}
+			
+			this.tileset = new Tileset(countTiles);
+			
 			for (int i = 0; i < json.size(); i++) {
 				JSONObject obj = (JSONObject) parser.parse(json.get(i).toString());
 				tileset.setTileSize(Integer.parseInt(obj.get("tilewidth").toString()), Integer.parseInt(obj.get("tileheight").toString()));
-				tileset.MakeTiles(new Texture("maps/"+obj.get("image").toString()));
+				tileset.MakeTiles(new Texture("maps/"+obj.get("image").toString()), Integer.parseInt(obj.get("firstgid").toString()));
 			}
 		} catch (ParseException | IOException e) {
 			e.printStackTrace();
@@ -89,10 +96,10 @@ public class Map {
 	public void draw(SpriteBatch batch) {
 		for (int i = 0; i < layers.size(); i++) {
 			int x = 0, y = 0;
-			ArrayList<Integer> data = layers.get(i).getData();
-			for (int j = 0; j < data.size(); j++) {
-				if (data.get(j) != -1) {
-					TextureRegion currentTextureRegion = tileset.tiles.get(data.get(j));
+			int[] data = layers.get(i).getData();
+			for (int j = 0; j < data.length; j++) {
+				if (data[j] != -1) {
+					TextureRegion currentTextureRegion = tileset.tiles[data[j]];
 					Vector2f tilesize = currentTextureRegion.GetRegionSize();
 					batch.draw(currentTextureRegion, x*(int)tilesize.x, y*(int)tilesize.y, (int)tilesize.x, (int)tilesize.y, 255, 255, 255, 255, layers.get(i).getGameLayer(), 1, 1);
 				}
