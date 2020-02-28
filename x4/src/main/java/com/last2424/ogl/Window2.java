@@ -7,18 +7,10 @@ import org.lwjgl.opengl.*;
 import org.lwjgl.system.*;
 
 import com.last2424.game.Game;
-import com.last2424.mmo.client.ClientChannelInitializer;
-import com.last2424.mmo.client.ClientHandler;
 import com.last2424.ogl.engine.IMain;
 import com.last2424.ogl.input.KeyboardHandler;
 import com.last2424.ogl.input.MouseHandler;
 import com.last2424.ogl.input.MousePositionHandler;
-
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
 
 import java.io.IOException;
 import java.nio.*;
@@ -35,8 +27,8 @@ import static org.lwjgl.opengl.GL11.glOrtho;
 import static org.lwjgl.system.MemoryStack.*;
 import static org.lwjgl.system.MemoryUtil.*;
 
-public class Window {
-	public static final String PATH = Window.class.getResource("").getPath().replaceFirst("ogl/", "assets/");
+public class Window2 {
+	public static final String PATH = Window2.class.getResource("").getPath().replaceFirst("ogl/", "assets/");
 	
 	
 	public static long window;
@@ -50,28 +42,6 @@ public class Window {
 	public boolean running = true;
 
 	public static Timer timer;
-	
-	Channel channel;
-	Bootstrap bootstrap;
-	boolean isNetwork = false;
-	
-	public void connecting(IMain main) throws IOException, InterruptedException {
-		isNetwork = true;
-		EventLoopGroup group = new NioEventLoopGroup();
-		
-		try {
-			bootstrap = new Bootstrap()
-					.group(group)
-					.channel(NioSocketChannel.class)
-					.handler(new ClientChannelInitializer());
-			
-			channel = bootstrap.connect("localhost", 8080).sync().channel();
-			run(main);
-		}
-		finally {
-			group.shutdownGracefully();
-		}
-	}
 	
 	public void run(IMain main) throws IOException {
 		System.out.println("LWJGL " + Version.getVersion() + "!");
@@ -145,9 +115,6 @@ public class Window {
 		
 		
 		main.create();
-		if (isNetwork) {
-			main.setChannel(channel);
-		}
 		while(running) {
 			if(resized) {
 				

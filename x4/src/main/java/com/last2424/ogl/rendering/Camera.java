@@ -26,7 +26,7 @@ public class Camera {
 	public void render(){
 		GL11.glMatrixMode(GL11.GL_PROJECTION);
 		GL11.glLoadIdentity();
-		GL11.glOrtho(position.x, size.x+position.x, size.y+position.y, position.y, 1, -1);
+		GL11.glOrtho(position.x, size.x+position.x, size.y+position.y, position.y, -50, 50);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
 	}
 }

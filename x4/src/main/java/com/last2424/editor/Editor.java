@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import com.last2424.ogl.engine.IMain;
 
+import io.netty.channel.Channel;
+
 public class Editor implements IMain {
 
 	@Override
@@ -16,6 +18,14 @@ public class Editor implements IMain {
 
 	@Override
 	public void render() {
+	}
+
+	@Override
+	public void dispose() {
+	}
+
+	@Override
+	public void setChannel(Channel channel) {
 	}
 
 }
