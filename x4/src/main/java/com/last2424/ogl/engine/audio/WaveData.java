@@ -1,8 +1,10 @@
 package com.last2424.ogl.engine.audio;
 
 import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.nio.ByteBuffer;
  
 import javax.sound.sampled.AudioFormat;
@@ -12,6 +14,8 @@ import javax.sound.sampled.UnsupportedAudioFileException;
  
 import org.lwjgl.BufferUtils;
 import org.lwjgl.openal.AL10;
+
+import com.last2424.ogl.Window;
  
 public class WaveData {
  
@@ -59,8 +63,9 @@ public class WaveData {
     }
  
  
-    public static WaveData create(String file){
-        InputStream stream = Class.class.getResourceAsStream("/"+file);
+    public static WaveData create(String file) throws MalformedURLException, IOException{
+        InputStream stream = new File(Window.PATH+"audio/"+file).toURL().openStream();
+        		//Class.class.getResourceAsStream("/"+file);
         if(stream==null){
             System.err.println("Couldn't find file: "+file);
             return null;

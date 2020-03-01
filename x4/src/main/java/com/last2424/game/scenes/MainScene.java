@@ -9,6 +9,8 @@ import com.last2424.game.entity.EntityPlayer;
 import com.last2424.game.object.tree.Tree;
 import com.last2424.ogl.Window;
 import com.last2424.ogl.engine.Sprite;
+import com.last2424.ogl.engine.audio.AudioManager;
+import com.last2424.ogl.engine.audio.AudioSource;
 import com.last2424.ogl.engine.scene.Scene;
 import com.last2424.ogl.engine.tiled.Map;
 import com.last2424.ogl.rendering.Camera;
@@ -27,6 +29,9 @@ public class MainScene implements Scene {
 	TrueTypeFont font;
 	Font standartFont;
 	
+	int buffer;
+	AudioSource source;
+	
 	@Override
 	public void create() throws IOException {
 		player = new EntityPlayer();
@@ -36,6 +41,10 @@ public class MainScene implements Scene {
 		standartFont = new Font("Arial", Font.BOLD, 14);
 		font = new TrueTypeFont(standartFont, true);
 		map = Map.Load("testmap");
+		buffer = AudioManager.loadSound("music.wav");
+		source = new AudioSource();
+		source.setVolume(0.1f);
+		source.play(buffer);
 	}
 
 	@Override

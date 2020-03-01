@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.last2424.game.scenes.MainScene;
 import com.last2424.ogl.engine.IMain;
+import com.last2424.ogl.engine.audio.AudioManager;
 import com.last2424.ogl.engine.scene.Scene;
 import com.last2424.ogl.engine.tiled.Map;
 
@@ -15,6 +16,8 @@ public class Game implements IMain {
 	public void create() throws IOException {
 		Textures.InitTextures();
 		Animations.InitAnimation();
+		AudioManager.init();
+		AudioManager.setListenerData();
 		scene.create();
 	}
 
