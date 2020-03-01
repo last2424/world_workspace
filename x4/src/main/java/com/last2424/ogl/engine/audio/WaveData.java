@@ -11,7 +11,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
  
 import org.lwjgl.BufferUtils;
-import org.lwjgl.openal.AL10;;
+import org.lwjgl.openal.AL10;
  
 public class WaveData {
  
