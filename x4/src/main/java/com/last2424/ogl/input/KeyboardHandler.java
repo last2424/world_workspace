@@ -17,6 +17,7 @@ public class KeyboardHandler extends GLFWKeyCallback {
 	private static boolean[] keys = new boolean[65536];
 	@Override
 	public void invoke(long window, int key, int scancode, int action, int mods) {
+		if(key <= 0) return;
 		if(action != GLFW_RELEASE){ 
 			pressedFirst[key] = !keys[key] && !pressedFirst[key];
 			releasedFirst[key] = false;

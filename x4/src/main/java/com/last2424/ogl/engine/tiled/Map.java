@@ -1,5 +1,7 @@
 package com.last2424.ogl.engine.tiled;
 
+import static org.lwjgl.opengl.GL11.glFlush;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
@@ -93,25 +95,29 @@ public class Map {
 		}		
 	}
 	
-	public void draw(SpriteBatch batch) {
+	public void draw(SpriteBatch batch,Vector2f pos,Vector2f size) {
+		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
 		for (int i = 0; i < layers.size(); i++) {
-			int x = 0, y = 0;
 			int[] data = layers.get(i).getData();
-			for (int j = 0; j < data.length; j++) {
-				if (data[j] != -1) {
-					TextureRegion currentTextureRegion = tileset.tiles[data[j]];
-					Vector2f tilesize = currentTextureRegion.GetRegionSize();
-					batch.draw(currentTextureRegion, x*(int)tilesize.x, y*(int)tilesize.y, (int)tilesize.x, (int)tilesize.y, 255, 255, 255, 255, layers.get(i).getGameLayer(), 1, 1);
-				}
-				x++;
-				if (x >= this.mapWidth) {
-					x = 0;
-					y++;
-					if (y >= this.mapHeight) {
-						break;
+			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
+			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
+			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			//posStart = new Vector2f(0,0);
+			//posEnd =  new Vector2f(mapWidth,mapHeight);
+			for (int y = (int)posStart.y;y <(int)posEnd.y;y++) {
+				
+				if(y>=this.mapHeight) break;
+				for(int x = (int)posStart.x;x<(int)posEnd.x;x++){
+					
+					if(x>=this.mapWidth) break;
+					int idData = (y * this.mapWidth) + x;
+					if (data[idData] != -1) {
+						TextureRegion currentTextureRegion = tileset.tiles[data[idData]];
+						batch.draw(currentTextureRegion, x*(int)tilesize.x, y*(int)tilesize.y, (int)tilesize.x, (int)tilesize.y, 255, 255, 255, 255, layers.get(i).getGameLayer(), 1, 1);
 					}
 				}
 			}
+			glFlush();
 		}
 	}
 }

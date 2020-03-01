@@ -58,7 +58,6 @@ public class SpriteBatch {
 		glTexCoord3f(regionPos.x/widthTexture, regionPos.y/heightTexture+regionSize.y/heightTexture, layer);
 		glVertex2f(x+offsetX, y+height*scaleY+offsetY);
 		glEnd();
-		glFlush();
 		glPopMatrix();
 	}
 	

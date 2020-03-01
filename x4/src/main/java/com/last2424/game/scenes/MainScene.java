@@ -49,7 +49,7 @@ public class MainScene implements Scene {
 		batch.setWindowColor(0.42f, 0.69f, 0.89f, 1.0f);
 		camera.render();
 		//tree.render(batch);
-		map.draw(batch);
+		map.draw(batch,camera.position,camera.size);
 		player.render(batch);
 		batch.setColor(255, 0, 0, 1);
 		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
