@@ -9,8 +9,8 @@ import org.json.simple.parser.ParseException;
 
 import com.last2424.ogl.rendering.SpriteBatch;
 
-public class TileLayer implements Layer {
-	int[] data;
+public class TileLayer implements Layer<Integer> {
+	Integer[] data;
 	
 	int gameLayer = 0;
 	
@@ -19,7 +19,7 @@ public class TileLayer implements Layer {
 
 	@Override
 	public void initializateData(JSONArray data) {
-		this.data = new int[data.size()];
+		this.data = new Integer[data.size()];
 		for (int i = 0; i < data.size(); i++) {
 			this.data[i] = (Integer.parseInt(data.get(i).toString())-1);
 		}
@@ -35,12 +35,15 @@ public class TileLayer implements Layer {
 	}
 
 	@Override
-	public int[] getData() {
+	public Integer[] getData() {
+		// TODO Auto-generated method stub
 		return data;
 	}
 
 	@Override
 	public int getGameLayer() {
-		return this.gameLayer;
+		// TODO Auto-generated method stub
+		return 0;
 	}
+
 }

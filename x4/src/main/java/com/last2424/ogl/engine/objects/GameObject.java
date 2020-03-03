@@ -12,7 +12,7 @@ public class GameObject {
 	public Animation currentAnimation;
 	
 	public Vector2f position;
-
+	
 	public void update(float delta) {
 		this.sprite.SetPosition(position.x, position.y);
 	}

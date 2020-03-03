@@ -56,6 +56,7 @@ public class MainScene implements Scene {
 
 	@Override
 	public void update(float delta) {
+		player.PhysicUpdate(delta,map);
 		player.update(delta);
 		camera.update();
 	}
@@ -66,8 +67,10 @@ public class MainScene implements Scene {
 		batch.setWindowColor(0.42f, 0.69f, 0.89f, 1.0f);
 		camera.render();
 		//tree.render(batch);
-		map.draw(batch,camera.position,camera.size);
+		map.drawBackgrond(batch,camera.position,camera.size);
+		map.draw(batch,camera.position,camera.size,player.position.y,true);
 		player.render(batch);
+		map.draw(batch,camera.position,camera.size,player.position.y,false);
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
 		f.debugDraw(batch);

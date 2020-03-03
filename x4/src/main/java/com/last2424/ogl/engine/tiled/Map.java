@@ -27,11 +27,13 @@ import com.last2424.ogl.rendering.TextureRegion;
 public class Map {
 	private Tileset tileset;
 	private ArrayList<Layer> layers;
-	
+
+	private ArrayList<Layer> layersObj;
 	private int mapWidth, mapHeight;
 	
 	public Map() {
 		layers = new ArrayList<Layer>();
+		layersObj = new ArrayList<Layer>();
 	}
 	
 	public static Map Load(String name) {
@@ -53,7 +55,10 @@ public class Map {
 		return null;
 		
 	}
-
+	public boolean IsSolid(Vector2f pos) {
+		
+		return true;
+	}
 	private void makeTileset(Object object) {
 		try {
 			JSONParser parser = new JSONParser();
@@ -89,35 +94,61 @@ public class Map {
 					layers.get(layers.size()-1).initializateData(arr);
 					((TileLayer)layers.get(layers.size()-1)).setLayer(prop, parser);
 				}
+				else if (obj.get("type").toString().equals("objectgroup")) {
+					JSONArray arr = (JSONArray) parser.parse(obj.get("objects").toString());
+					layersObj.add(new ObjectLayer());
+					layersObj.get(layersObj.size()-1).initializateData(arr);
+				}
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}		
 	}
-	
-	public void draw(SpriteBatch batch,Vector2f pos,Vector2f size) {
+
+	public void drawLayer(SpriteBatch batch,Vector2f start,Vector2f end,int layer) {
 		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
-		for (int i = 0; i < layers.size(); i++) {
-			int[] data = layers.get(i).getData();
-			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
-			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
-			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			Integer[] data = ((TileLayer) (layers.get(layer))).getData();
 			//posStart = new Vector2f(0,0);
 			//posEnd =  new Vector2f(mapWidth,mapHeight);
-			for (int y = (int)posStart.y;y <(int)posEnd.y;y++) {
+			if(start.y<=0) start.y = 0;
+			if(start.x<=0) start.x = 0;
+			for (int y = (int)start.y;y <(int)end.y;y++) {
 				
 				if(y>=this.mapHeight) break;
-				for(int x = (int)posStart.x;x<(int)posEnd.x;x++){
+				for(int x = (int)start.x;x<(int)end.x;x++){
 					
 					if(x>=this.mapWidth) break;
 					int idData = (y * this.mapWidth) + x;
 					if (data[idData] != -1) {
 						TextureRegion currentTextureRegion = tileset.tiles[data[idData]];
-						batch.draw(currentTextureRegion, x*(int)tilesize.x, y*(int)tilesize.y, (int)tilesize.x, (int)tilesize.y, 255, 255, 255, 255, layers.get(i).getGameLayer(), 1, 1);
-					}
+						batch.draw(currentTextureRegion, x*(int)tilesize.x, y*(int)tilesize.y, (int)tilesize.x, (int)tilesize.y, 255, 255, 255, 255, layers.get(layer).getGameLayer(), 1, 1);
 				}
 			}
-			glFlush();
+		}
+		glFlush();
+	}
+	public void drawBackgrond(SpriteBatch batch,Vector2f pos,Vector2f size) {
+		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
+		for (int i = 0; i < 2; i++) {
+			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
+			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
+			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			drawLayer(batch,posStart,posEnd,i);
+		}
+	}
+	public void draw(SpriteBatch batch,Vector2f pos,Vector2f size,float posY,boolean start) {
+		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
+		for (int i = 2; i < layers.size(); i++) {
+			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
+			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
+			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			if(start) {
+				posEnd.y = (posY/tilesize.y)+1;
+			}
+			else {
+				posStart.y = (posY/tilesize.y)+1;
+			}
+			drawLayer(batch,posStart,posEnd,i);
 		}
 	}
 }
