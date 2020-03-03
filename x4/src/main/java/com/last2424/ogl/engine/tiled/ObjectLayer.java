@@ -14,14 +14,14 @@ public class ObjectLayer implements Layer<ObjectSolid> {
 		solids = new ObjectSolid[data.size()];
 		for(int i=0;i<data.size();i++) {
 			solids[i] = new ObjectSolid();
-			solids[i].Init((JSONObject)data.get(0));
+			solids[i].Init((JSONObject)data.get(i));
 		}
 	}
 
 	@Override
 	public ObjectSolid[] getData() {
 		// TODO Auto-generated method stub
-		return null;
+		return solids;
 	}
 
 	@Override

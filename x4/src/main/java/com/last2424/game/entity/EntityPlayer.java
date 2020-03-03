@@ -19,7 +19,7 @@ public class EntityPlayer extends Entity {
 	public EntityPlayer() {
 		this.sprite = new Sprite(Textures.player, Color.WHITE, new Vector2f(0, 0), new Vector2f(32, 32), 0);
 		this.currentAnimation = Animations.idleDown;
-		this.position = new Vector2f();
+		this.position = new Vector2f(64,64);
 	}
 	public void PhysicUpdate(float delta,Map map) {
 		direction = new Vector2i(0, 0);
@@ -48,11 +48,12 @@ public class EntityPlayer extends Entity {
 			direction.x = 1;
 			speed.x = 50;
 		}
-		Vector2f positionTemp = this.position;
-		
+		Vector2f positionTemp = new Vector2f(this.position.x,this.position.y);
 		positionTemp.x += speed.x * delta;
-		
+		if(map.IsSolid(positionTemp, new Vector2f(32,32))) positionTemp.x = position.x;
 		positionTemp.y += speed.y * delta;
+		if(map.IsSolid(positionTemp, new Vector2f(32,32))) positionTemp.y = position.y;
+		
 		this.position = positionTemp;
 	}
 	public void update(float delta) {

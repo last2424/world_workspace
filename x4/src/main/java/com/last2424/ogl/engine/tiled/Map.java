@@ -23,6 +23,7 @@ import org.w3c.dom.NodeList;
 import com.last2424.ogl.rendering.SpriteBatch;
 import com.last2424.ogl.rendering.Texture;
 import com.last2424.ogl.rendering.TextureRegion;
+import com.last2424.utils.Rectangle;
 
 public class Map {
 	private Tileset tileset;
@@ -55,9 +56,18 @@ public class Map {
 		return null;
 		
 	}
-	public boolean IsSolid(Vector2f pos) {
-		
-		return true;
+	public boolean IsSolid(Vector2f pos,Vector2f size) {
+		for(int i=0;i<layersObj.size();i++) {
+			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
+			for(int j=0;j<solids.length;j++) {
+				if(solids[j].getRect().isColid(new Rectangle(pos,size)))
+					return true;
+				else {
+					System.out.println(solids[j].x + " " + solids[j].y);
+				}
+			}
+		}
+		return false;
 	}
 	private void makeTileset(Object object) {
 		try {
