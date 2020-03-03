@@ -12,14 +12,20 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 public class ProcessingHandler extends ChannelInboundHandlerAdapter {
 	
 	
+	
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		RequestData requestData = (RequestData) msg;
 		ResponseData responseData = new ResponseData();
 		responseData.setIntValue(requestData.getIntValue()*2);
-		ChannelFuture future = ctx.writeAndFlush(responseData);
-		//future.addListener(ChannelFutureListener.CLOSE);
+		ctx.writeAndFlush(responseData);
 		System.out.println(requestData.getStringValue());
 	}
+	
+    @Override
+    public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+    	cause.printStackTrace();
+    	ctx.close();
+    }
 		
 }

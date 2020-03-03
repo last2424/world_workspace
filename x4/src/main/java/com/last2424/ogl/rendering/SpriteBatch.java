@@ -1,6 +1,7 @@
 package com.last2424.ogl.rendering;
 
 import org.joml.Vector2f;
+import org.lwjgl.opengl.GL11;
 
 import com.last2424.ogl.Window;
 
@@ -44,7 +45,7 @@ public class SpriteBatch {
 		if(scaleX < 0) {
 			offsetX = width;
 		}
-
+		//glEnable(GL11.GL_TEXTURE_2D);
 		glPushMatrix();
 		glTranslatef(0, 0, layer);
 		glBegin(GL_QUADS);
@@ -59,6 +60,18 @@ public class SpriteBatch {
 		glVertex2f(x+offsetX, y+height*scaleY+offsetY);
 		glEnd();
 		glPopMatrix();
+		texture.GetTexture().unbind();
+	}
+	
+	public void drawLine(Vector2f start, Vector2f end, int layer) {
+		//glDisable(GL11.GL_TEXTURE_2D);
+		glPushMatrix();
+		glTranslatef(0, 0, layer);
+		glBegin(GL_LINES);
+		glVertex3f(start.x, start.y, layer);
+		glVertex3f(end.x, end.y, layer);
+		glEnd();
+		glPopMatrix();		
 	}
 	
 }

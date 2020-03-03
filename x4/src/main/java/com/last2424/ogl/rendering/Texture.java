@@ -116,6 +116,10 @@ public class Texture {
 		glBindTexture(target, id);
 	}
 	
+	public void unbind() {
+		glBindTexture(target, 0);
+	}
+	
 	public void delete() {
 	    glDeleteTextures(id);
 	}

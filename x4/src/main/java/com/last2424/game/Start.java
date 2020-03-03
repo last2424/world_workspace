@@ -6,7 +6,7 @@ import com.last2424.ogl.Window;
 
 public class Start {
 
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		Game logic = new Game();
 		new Window().run(logic);
 	}

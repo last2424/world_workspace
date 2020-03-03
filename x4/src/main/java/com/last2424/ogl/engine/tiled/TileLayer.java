@@ -28,7 +28,7 @@ public class TileLayer implements Layer {
 	public void setLayer(JSONArray properties, JSONParser parser) throws ParseException {
 		for (int i = 0; i < properties.size(); i++) {
 			JSONObject obj = (JSONObject) parser.parse(properties.get(i).toString());
-			if (obj.get("name").toString() == "layer") {
+			if (obj.get("name").toString().equals("layer")) {
 				gameLayer = Integer.parseInt(obj.get("value").toString());
 			}
 		}

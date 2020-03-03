@@ -73,7 +73,7 @@ public class Window {
 		}
 	}
 	
-	public void run(IMain main) throws IOException {
+	public void run(IMain main) throws IOException, InterruptedException {
 		System.out.println("LWJGL " + Version.getVersion() + "!");
 		
 		init(main);
@@ -129,7 +129,7 @@ public class Window {
 		}
 		
 		glfwMakeContextCurrent(window);
-		
+		glfwSwapBuffers(window);
 		glfwSwapInterval(0);
 		
 		
@@ -138,7 +138,7 @@ public class Window {
 		
 	}
 	
-	private void loop(IMain main) throws IOException {
+	private void loop(IMain main) throws IOException, InterruptedException {
 		GL.createCapabilities();
 		SyncTimer synctimer  = new SyncTimer(SyncTimer.LWJGL_GLFW);
 		this.timer = new Timer();
@@ -164,8 +164,9 @@ public class Window {
 				glLoadIdentity();
 				glEnable(GL_TEXTURE_2D);
 				glEnable(GL11.GL_BLEND);
-				GL11.glEnable(GL11.GL_DEPTH_TEST);
+				glEnable(GL11.GL_DEPTH_TEST);
 				glEnable(GL11.GL_ALPHA_TEST); 
+				glEnable(GL11.GL_LINE_SMOOTH);
 				GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 	            GL11.glDepthFunc(GL11.GL_LEQUAL);
 				GL11.glAlphaFunc(GL11.GL_NOTEQUAL, 0);

@@ -23,13 +23,14 @@ public class ClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-        System.out.println((ResponseData)msg);
+        System.out.println(((ResponseData)msg).getStringValue());
     }
-   
+    
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
     	cause.printStackTrace();
     	ctx.close();
     }
+    
 
 }

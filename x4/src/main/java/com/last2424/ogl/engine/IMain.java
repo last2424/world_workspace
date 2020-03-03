@@ -6,12 +6,11 @@ import io.netty.channel.Channel;
 
 public interface IMain {
 
-	public void create() throws IOException;
+	public void create() throws IOException, InterruptedException;
 	public void update(float delta);
 	public void render();
 	
 	public void dispose();
-	
-	void setChannel(Channel channel);
+	public void setChannel(Channel channel);
 	
 }

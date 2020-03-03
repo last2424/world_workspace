@@ -36,6 +36,7 @@ public class Game implements IMain {
 
 	@Override
 	public void setChannel(Channel channel) {
+		
 	}
 
 }

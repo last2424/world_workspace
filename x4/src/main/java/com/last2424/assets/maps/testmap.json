@@ -65,7 +65,7 @@
                 {
                  "name":"layer",
                  "type":"int",
-                 "value":0
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -83,7 +83,7 @@
                 {
                  "name":"layer",
                  "type":"int",
-                 "value":0
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,
@@ -101,7 +101,7 @@
                 {
                  "name":"layer",
                  "type":"int",
-                 "value":0
+                 "value":1
                 }],
          "type":"tilelayer",
          "visible":true,

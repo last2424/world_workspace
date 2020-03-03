@@ -15,7 +15,6 @@ public class Camera {
 	public Camera(){
 		this.position = new Vector2f(0, 0);
 		this.size = new Vector2f(Window.width/2, Window.height/2);
-		
 	}
 	
 	public void update() {

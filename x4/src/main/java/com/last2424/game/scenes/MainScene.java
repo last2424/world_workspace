@@ -7,6 +7,7 @@ import org.joml.Vector2f;
 
 import com.last2424.game.entity.EntityPlayer;
 import com.last2424.game.object.tree.Tree;
+import com.last2424.game.solutions.PathFind;
 import com.last2424.ogl.Window;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.engine.audio.AudioManager;
@@ -25,12 +26,16 @@ public class MainScene implements Scene {
 	SpriteBatch batch;
 	
 	Map map;
+	PathFind f;
+	
 	
 	TrueTypeFont font;
 	Font standartFont;
 	
 	int buffer;
 	AudioSource source;
+	
+	boolean a = false;
 	
 	@Override
 	public void create() throws IOException {
@@ -45,11 +50,14 @@ public class MainScene implements Scene {
 		source = new AudioSource();
 		source.setVolume(0.1f);
 		source.play(buffer);
+		f = new PathFind();
+		f.find(new Vector2f(100, 100), new Vector2f(200, 200));
 	}
 
 	@Override
 	public void update(float delta) {
 		player.update(delta);
+		camera.update();
 	}
 
 	@Override
@@ -58,11 +66,13 @@ public class MainScene implements Scene {
 		batch.setWindowColor(0.42f, 0.69f, 0.89f, 1.0f);
 		camera.render();
 		//tree.render(batch);
+		batch.setColor(1.0f, 1.0f, 1.0f, 1);
+		batch.drawLine(new Vector2f(0, 50), new Vector2f(500, 50), 10);
 		map.draw(batch,camera.position,camera.size);
 		player.render(batch);
-		batch.setColor(255, 0, 0, 1);
+		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
-		
+		//f.debugDraw(batch);
 	}
 
 }
