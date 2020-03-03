@@ -162,7 +162,7 @@ public class Window {
 				
 				glMatrixMode(GL_MODELVIEW);
 				glLoadIdentity();
-				glEnable(GL_TEXTURE_2D);
+				//glEnable(GL_TEXTURE_2D);
 				glEnable(GL11.GL_BLEND);
 				glEnable(GL11.GL_DEPTH_TEST);
 				glEnable(GL11.GL_ALPHA_TEST); 

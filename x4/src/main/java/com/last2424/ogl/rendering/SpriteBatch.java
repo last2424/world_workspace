@@ -45,7 +45,7 @@ public class SpriteBatch {
 		if(scaleX < 0) {
 			offsetX = width;
 		}
-		//glEnable(GL11.GL_TEXTURE_2D);
+		glEnable(GL11.GL_TEXTURE_2D);
 		glPushMatrix();
 		glTranslatef(0, 0, layer);
 		glBegin(GL_QUADS);
@@ -64,7 +64,7 @@ public class SpriteBatch {
 	}
 	
 	public void drawLine(Vector2f start, Vector2f end, int layer) {
-		//glDisable(GL11.GL_TEXTURE_2D);
+		glDisable(GL11.GL_TEXTURE_2D);
 		glPushMatrix();
 		glTranslatef(0, 0, layer);
 		glBegin(GL_LINES);
