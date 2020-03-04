@@ -16,7 +16,9 @@ public class GameObject {
 	public void update(float delta) {
 		this.sprite.SetPosition(position.x, position.y);
 	}
-
+	public Vector2f getHalf() {
+		return new Vector2f(this.position.x+(sprite.GetSize().x/2),this.position.y+(sprite.GetSize().y/2));
+	}
 	public void render(SpriteBatch batch) {
 		sprite.draw(batch);
 	}

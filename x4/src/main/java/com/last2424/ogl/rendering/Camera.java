@@ -21,9 +21,10 @@ public class Camera {
 		this.max = max;
 	}
 	public void update(float delta) {
+		
 		this.size = new Vector2f(Window.width/2, Window.height/2);
 		if (target != null) {
-			Vector2f newPos = new Vector2f(target.position.x-(this.size.x/2),target.position.y-(this.size.y/2));
+			Vector2f newPos = new Vector2f(target.getHalf().x -(this.size.x/2),target.getHalf().y-(this.size.y/2));
 			if(newPos.x <=0) newPos.x = 0;
 			if(newPos.y<=0) newPos.y = 0;
 			if(max.x>=1 && newPos.x+this.size.x>=max.x) newPos.x = max.x-this.size.x;
