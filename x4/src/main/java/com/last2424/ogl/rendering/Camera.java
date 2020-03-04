@@ -9,7 +9,7 @@ import com.last2424.ogl.Window;
 public class Camera {
 	
 	public Entity target;
-	
+	public float speed = 0.05f;
 	public Vector2f position;
 	public Vector2f size;
 	public Camera(){
@@ -20,14 +20,27 @@ public class Camera {
 	public void SetMaxCamera(Vector2f max) {
 		this.max = max;
 	}
-	public void update() {
+	public void update(float delta) {
 		this.size = new Vector2f(Window.width/2, Window.height/2);
 		if (target != null) {
-			this.position = new Vector2f(target.position.x-(this.size.x/2),target.position.y-(this.size.y/2));
-			if(this.position.x<=0) this.position.x = 0;
-			if(this.position.y<=0) this.position.y = 0;
-			if(max.x>=1 && this.position.x+this.size.x>=max.x) this.position.x = max.x-this.size.x;
-			if(max.y>=1 && this.position.y+this.size.y>=max.y) this.position.y = max.y-this.size.y;
+			Vector2f newPos = new Vector2f(target.position.x-(this.size.x/2),target.position.y-(this.size.y/2));
+			if(newPos.x <=0) newPos.x = 0;
+			if(newPos.y<=0) newPos.y = 0;
+			if(max.x>=1 && newPos.x+this.size.x>=max.x) newPos.x = max.x-this.size.x;
+			if(max.y>=1 && newPos.y+this.size.y>=max.y) newPos.y = max.y-this.size.y;
+			Vector2f dir = new Vector2f(0,0);
+			newPos.sub(this.position,dir);
+			Vector2f direction = new Vector2f(dir.x,dir.y);
+			direction = direction.normalize();
+			if(dir.x<=0.01f) 
+				this.position.x = newPos.x;
+			else
+				this.position.x+=dir.x*speed;
+			if(dir.y<=0.01f) 
+				this.position.y = newPos.y;
+			else
+				this.position.y+=dir.y*speed;
+			
 		}
 	}
 	

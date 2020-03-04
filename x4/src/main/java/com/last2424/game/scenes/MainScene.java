@@ -60,7 +60,7 @@ public class MainScene implements Scene {
 	public void update(float delta) {
 		player.PhysicUpdate(delta,map);
 		player.update(delta);
-		camera.update();
+		camera.update(delta);
 	}
 
 	@Override
