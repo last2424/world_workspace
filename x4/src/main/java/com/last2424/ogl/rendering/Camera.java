@@ -9,7 +9,7 @@ import com.last2424.ogl.Window;
 public class Camera {
 	
 	public Entity target;
-	public float speed = 0.05f;
+	public float speed = 0.5f;
 	public Vector2f position;
 	public Vector2f size;
 	public Camera(){
@@ -35,11 +35,11 @@ public class Camera {
 			if(dir.x<=0.01f) 
 				this.position.x = newPos.x;
 			else
-				this.position.x+=dir.x*speed;
+				this.position.x+=direction.x*speed;
 			if(dir.y<=0.01f) 
 				this.position.y = newPos.y;
 			else
-				this.position.y+=dir.y*speed;
+				this.position.y+=direction.y*speed;
 			
 		}
 	}
