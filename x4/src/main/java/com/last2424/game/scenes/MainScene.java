@@ -43,9 +43,11 @@ public class MainScene implements Scene {
 		tree = new Tree();
 		batch = new SpriteBatch();
 		camera = new Camera();
+		camera.target = player;
 		standartFont = new Font("Arial", Font.BOLD, 14);
 		font = new TrueTypeFont(standartFont, true);
 		map = Map.Load("testmap");
+		camera.SetMaxCamera(map.getSize());
 		buffer = AudioManager.loadSound("music.wav");
 		source = new AudioSource();
 		source.setVolume(0.1f);
@@ -72,8 +74,9 @@ public class MainScene implements Scene {
 		player.render(batch);
 		map.draw(batch,camera.position,camera.size,player.position.y,false);
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
-		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
 		f.debugDraw(batch);
+		camera.renderUI();
+		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
 	}
 
 }

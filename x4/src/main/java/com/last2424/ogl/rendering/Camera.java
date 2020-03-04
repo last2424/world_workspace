@@ -16,10 +16,19 @@ public class Camera {
 		this.position = new Vector2f(0, 0);
 		this.size = new Vector2f(Window.width/2, Window.height/2);
 	}
-	
+	Vector2f max = new Vector2f(0,0);
+	public void SetMaxCamera(Vector2f max) {
+		this.max = max;
+	}
 	public void update() {
-		if (target != null) this.position = target.position;
 		this.size = new Vector2f(Window.width/2, Window.height/2);
+		if (target != null) {
+			this.position = new Vector2f(target.position.x-(this.size.x/2),target.position.y-(this.size.y/2));
+			if(this.position.x<=0) this.position.x = 0;
+			if(this.position.y<=0) this.position.y = 0;
+			if(max.x>=1 && this.position.x+this.size.x>=max.x) this.position.x = max.x-this.size.x;
+			if(max.y>=1 && this.position.y+this.size.y>=max.y) this.position.y = max.y-this.size.y;
+		}
 	}
 	
 	public void render(){
@@ -27,5 +36,12 @@ public class Camera {
 		GL11.glLoadIdentity();
 		GL11.glOrtho(position.x, size.x+position.x, size.y+position.y, position.y, -50, 50);
 		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+	}
+	public void renderUI() {
+		GL11.glMatrixMode(GL11.GL_PROJECTION);
+		GL11.glLoadIdentity();
+		GL11.glOrtho(0, size.x, size.y, 0, -50, 50);
+		GL11.glMatrixMode(GL11.GL_MODELVIEW);
+		
 	}
 }

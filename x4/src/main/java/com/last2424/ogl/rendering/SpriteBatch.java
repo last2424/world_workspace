@@ -45,7 +45,6 @@ public class SpriteBatch {
 		if(scaleX < 0) {
 			offsetX = width;
 		}
-		glEnable(GL11.GL_TEXTURE_2D);
 		glPushMatrix();
 		glTranslatef(0, 0, layer);
 		glBegin(GL_QUADS);
@@ -72,6 +71,7 @@ public class SpriteBatch {
 		glVertex3f(end.x, end.y, layer);
 		glEnd();
 		glPopMatrix();		
+		glEnable(GL11.GL_TEXTURE_2D);
 	}
 	
 }

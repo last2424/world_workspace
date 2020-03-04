@@ -114,7 +114,11 @@ public class Map {
 			e.printStackTrace();
 		}		
 	}
+	public Vector2f getSize() {
 
+		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
+		return new Vector2f(tilesize.x*mapWidth,tilesize.y*mapHeight);
+	}
 	public void drawLayer(SpriteBatch batch,Vector2f start,Vector2f end,int layer) {
 		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
 			Integer[] data = ((TileLayer) (layers.get(layer))).getData();
@@ -142,7 +146,7 @@ public class Map {
 		for (int i = 0; i < 2; i++) {
 			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
 			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
-			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x+2,posStart.y+mapTile.y+2);
 			drawLayer(batch,posStart,posEnd,i);
 		}
 	}
@@ -151,7 +155,7 @@ public class Map {
 		for (int i = 2; i < layers.size(); i++) {
 			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
 			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
-			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x,posStart.y+mapTile.y);
+			Vector2f posEnd =  new Vector2f(posStart.x+mapTile.x+2,posStart.y+mapTile.y+2);
 			if(start) {
 				posEnd.y = (posY/tilesize.y)+1;
 			}
