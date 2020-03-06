@@ -62,9 +62,6 @@ public class Map {
 			for(int j=0;j<solids.length;j++) {
 				if(solids[j].getRect().isColid(new Rectangle(pos,size)))
 					return true;
-				else {
-					System.out.println(solids[j].x + " " + solids[j].y);
-				}
 			}
 		}
 		return false;
