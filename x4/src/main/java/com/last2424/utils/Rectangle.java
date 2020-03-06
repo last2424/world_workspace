@@ -9,9 +9,23 @@ public class Rectangle {
 		pos = new Vector2f(0,0);
 		size = new Vector2f(0,0);
 	}
-	public Rectangle(Vector2f pos,Vector2f size) {
+
+	public Rectangle(Vector2f pos,Vector2f size,boolean isCenter) {
 		this.pos = pos;
 		this.size = size;
+		if(isCenter){
+			this.pos.x-=this.size.x/2;
+			this.pos.y-=this.size.y/2;
+		}
+	}
+	public Rectangle(Vector2f pos,Vector2f size) {
+		this(pos,size,false);
+	}
+	public void SetCenter(Vector2f center) {
+
+		this.pos = center;
+		this.pos.x-=this.size.x/2;
+		this.pos.y-=this.size.y/2;
 	}
 	public boolean isColid(Rectangle rect) {
 		/*

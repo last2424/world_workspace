@@ -56,15 +56,18 @@ public class Map {
 		return null;
 		
 	}
-	public boolean IsSolid(Vector2f pos,Vector2f size) {
+	public boolean IsSolid(Rectangle rect) {
 		for(int i=0;i<layersObj.size();i++) {
 			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
 			for(int j=0;j<solids.length;j++) {
-				if(solids[j].getRect().isColid(new Rectangle(pos,size)))
+				if(solids[j].getRect().isColid(rect))
 					return true;
 			}
 		}
 		return false;
+	}
+	public boolean IsSolid(Vector2f pos,Vector2f size) {
+		return IsSolid(new Rectangle(pos, size));
 	}
 	private void makeTileset(Object object) {
 		try {
