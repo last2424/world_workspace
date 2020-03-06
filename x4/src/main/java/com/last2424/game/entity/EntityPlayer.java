@@ -16,7 +16,7 @@ import com.last2424.ogl.input.KeyboardHandler;
 public class EntityPlayer extends Entity {
 
 	Vector2i direction = new Vector2i(0, 0);
-	Vector2f addition;
+	Vector2f addition = new Vector2f(0,0);
 	public EntityPlayer() {
 		this.sprite = new Sprite(Textures.player, Color.WHITE, new Vector2f(0, 0), new Vector2f(32, 32), 0);
 		this.currentAnimation = Animations.idleDown;
@@ -62,8 +62,12 @@ public class EntityPlayer extends Entity {
 		if(floatSpeed.y>=0) floatSpeed.y = speed.y - intSpeed.y;
 		else floatSpeed.y = intSpeed.y+speed.y; //
 		
-		if(speed.equals(0, 0)) this.addition =new Vector2f(0,0);
-		else this.addition.add(floatSpeed);
+		if(speed.x == 0)
+			this.addition.x = 0;
+		if(speed.y == 0)
+			this.addition.y = 0;
+		
+		this.addition.add(floatSpeed);
 		System.out.println("Speed a:"+ intSpeed.x +
 				" Speed b:"+ intSpeed.y +
 				" Speed c:"+ floatSpeed.x +
