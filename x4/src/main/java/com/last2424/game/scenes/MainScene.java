@@ -43,6 +43,7 @@ public class MainScene implements Scene {
 		tree = new Tree();
 		batch = new SpriteBatch();
 		camera = new Camera();
+		camera.FadeIn(1.0f);
 		camera.target = player;
 		standartFont = new Font("Arial", Font.BOLD, 14);
 		font = new TrueTypeFont(standartFont, true);
@@ -75,8 +76,10 @@ public class MainScene implements Scene {
 		map.draw(batch,camera.position,camera.size,player.position.y,false);
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		f.debugDraw(batch);
+		camera.postRender();
 		camera.renderUI();
 		font.drawString(0, 0, Integer.toString(Window.timer.getFPS()), 1.0f, 1.0f);
+		
 	}
 
 }
