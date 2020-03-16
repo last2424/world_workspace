@@ -4,6 +4,7 @@ import org.joml.Vector2f;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
+import com.last2424.ogl.engine.objects.GameObject;
 import com.last2424.utils.Rectangle;
 
 public class ObjectSolid {
@@ -15,6 +16,7 @@ public class ObjectSolid {
 	public TypeAction typeAction;
 	public IAction action;	
 	public Long id;
+	public GameObject anchorObject;
 	float toFloat(Object obj) {
 		if(obj instanceof Long) { 
 			return (float)(long) obj;
@@ -38,6 +40,13 @@ public class ObjectSolid {
 		if(action!=null && typeAction == TypeAction.AUTORUN) {
 			action.Activate(this, delta);
 		}
+		if(this.anchorObject!=null) {
+			x = anchorObject.getHalf().x-width/2;
+			y = anchorObject.getHalf().y-height/2;
+		}
+	}
+	public void SetAnchorGameObject(GameObject anchorObject) {
+		this.anchorObject = anchorObject;
 	}
 	public void Init(JSONObject data) {
 		id =  (Long)data.get("id");
