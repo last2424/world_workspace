@@ -11,12 +11,14 @@ import com.last2424.game.Animations;
 import com.last2424.game.Textures;
 import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.engine.tiled.Map;
+import com.last2424.ogl.engine.tiled.ObjectSolid;
 import com.last2424.ogl.input.KeyboardHandler;
 
 public class EntityPlayer extends Entity {
 
 	Vector2i direction = new Vector2i(0, 0);
 	Vector2f addition = new Vector2f(0,0);
+	ObjectSolid lastObject ;
 	public EntityPlayer() {
 		this.sprite = new Sprite(Textures.player, Color.WHITE, new Vector2f(0, 0), new Vector2f(32, 32), 0);
 		this.currentAnimation = Animations.idleDown;
@@ -25,26 +27,29 @@ public class EntityPlayer extends Entity {
 	public void PhysicUpdate(float delta,Map map) {
 		direction = new Vector2i(0, 0);
 		Vector2f speed = new Vector2f(0, 0);
-		
 		if(KeyboardHandler.isKeyDown(KeyEvent.VK_W)) {
+			lastObject = null;
 			currentAnimation = Animations.moveUp;
 			direction.y = -1;
 			speed.y = -50;
 		} 
 		
 		if(KeyboardHandler.isKeyDown(KeyEvent.VK_S)) {
+			lastObject = null;
 			currentAnimation = Animations.moveDown;
 			direction.y = 1;
 			speed.y = 50;
 		}
 		
 		if(KeyboardHandler.isKeyDown(KeyEvent.VK_A)) {
+			lastObject = null;
 			currentAnimation = Animations.moveLeft;
 			direction.x = -1;
 			speed.x = -50;
 		}
 		
 		if(KeyboardHandler.isKeyDown(KeyEvent.VK_D)) {
+			lastObject = null;
 			currentAnimation = Animations.moveRight;
 			direction.x = 1;
 			speed.x = 50;
@@ -68,11 +73,6 @@ public class EntityPlayer extends Entity {
 			this.addition.y = 0;
 		
 		this.addition.add(floatSpeed);
-		System.out.println("Speed a:"+ intSpeed.x +
-				" Speed b:"+ intSpeed.y +
-				" Speed c:"+ floatSpeed.x +
-				" Speed e:"+ floatSpeed.y
-				);
 		if(addition.x>=1) {
 			
 			intSpeed.x+=1;
@@ -100,12 +100,15 @@ public class EntityPlayer extends Entity {
 			int dirX = 0;
 			if(intSpeed.x>=0) dirX = 1;
 			else dirX = -1;
-			System.out.println("stepx:"+stepx+" dirX:"+dirX);
 			for(int i=0;i<stepx;i++) {
 
 				positionTemp.x += dirX;
 				if(map.IsSolid(positionTemp, new Vector2f(32,32))) 
-				{	System.out.println("colidetion");
+				{	
+					lastObject = map.getLastSolidObject();
+					lastObject.Colide(delta);
+
+				//	System.out.println(lastObject.id);
 					positionTemp.x -= dirX;
 					break;
 				}
@@ -117,15 +120,21 @@ public class EntityPlayer extends Entity {
 			int dirY = 0;
 			if(intSpeed.y>=0) dirY = 1;
 			else dirY = -1;
-			System.out.println("stepY:"+stepY+" dirY:"+dirY);
 			for(int i=0;i<stepY;i++) {
 
 				positionTemp.y += dirY;
 				if(map.IsSolid(positionTemp, new Vector2f(32,32))) 
-				{	System.out.println("colidetion");
+				{	
+					lastObject = map.getLastSolidObject();
+					lastObject.Colide(delta);
 					positionTemp.y -= dirY;
 					break;
 				}
+			}
+		}
+		if(KeyboardHandler.isKeyDown(KeyEvent.VK_E)) {
+			if(lastObject!=null) { lastObject.Use(delta);
+				System.out.println(lastObject.id);
 			}
 		}
 		this.position = positionTemp;

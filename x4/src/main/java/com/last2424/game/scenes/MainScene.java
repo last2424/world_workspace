@@ -13,7 +13,10 @@ import com.last2424.ogl.engine.Sprite;
 import com.last2424.ogl.engine.audio.AudioManager;
 import com.last2424.ogl.engine.audio.AudioSource;
 import com.last2424.ogl.engine.scene.Scene;
+import com.last2424.ogl.engine.tiled.IAction;
 import com.last2424.ogl.engine.tiled.Map;
+import com.last2424.ogl.engine.tiled.ObjectSolid;
+import com.last2424.ogl.engine.tiled.TypeAction;
 import com.last2424.ogl.rendering.Camera;
 import com.last2424.ogl.rendering.SpriteBatch;
 import com.last2424.ogl.rendering.TrueTypeFont;
@@ -48,6 +51,13 @@ public class MainScene implements Scene {
 		standartFont = new Font("Arial", Font.BOLD, 14);
 		font = new TrueTypeFont(standartFont, true);
 		map = Map.Load("testmap");
+		map.getObject(58).AddEvent(TypeAction.USE,new IAction() {
+			
+			@Override
+			public void Activate(ObjectSolid solid, float delta) {
+				System.out.println("USE");
+			}
+		});
 		camera.SetMaxCamera(map.getSize());
 		buffer = AudioManager.loadSound("music.wav");
 		source = new AudioSource();
@@ -59,6 +69,7 @@ public class MainScene implements Scene {
 
 	@Override
 	public void update(float delta) {
+		map.Update(delta);
 		player.PhysicUpdate(delta,map);
 		player.update(delta);
 		camera.update(delta);

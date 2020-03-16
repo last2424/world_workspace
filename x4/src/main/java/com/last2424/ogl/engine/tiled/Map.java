@@ -56,12 +56,19 @@ public class Map {
 		return null;
 		
 	}
+	ObjectSolid  solidObject;
+	public ObjectSolid getLastSolidObject() {
+		return solidObject;
+	}
 	public boolean IsSolid(Rectangle rect) {
 		for(int i=0;i<layersObj.size();i++) {
 			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
 			for(int j=0;j<solids.length;j++) {
-				if(solids[j].getRect().isColid(rect))
-					return true;
+				if(solids[j].getRect().isColid(rect)) {
+					solidObject = solids[j];
+					if(solids[j].solid)
+						return true;
+				}
 			}
 		}
 		return false;
@@ -140,6 +147,25 @@ public class Map {
 			}
 		}
 		glFlush();
+	}
+	public void Update(float delta) {
+
+		for(int i=0;i<layersObj.size();i++) {
+			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
+			for(int j=0;j<solids.length;j++) {
+				solids[j].Update(delta);
+			}
+		}
+	}
+	public ObjectSolid getObject(int id) {
+		for(int i=0;i<layersObj.size();i++) {
+			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
+			for(int j=0;j<solids.length;j++) {
+				if(solids[j].id == id)
+					return solids[j];
+			}
+		}
+		return null;
 	}
 	public void drawBackgrond(SpriteBatch batch,Vector2f pos,Vector2f size) {
 		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
