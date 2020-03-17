@@ -64,7 +64,7 @@ public class MainScene implements Scene {
 		source.setVolume(0.1f);
 		source.play(buffer);
 		f = new PathFind();
-		f.find(new Vector2f(100, 100), new Vector2f(200, 200));
+		f.find(new Vector2f(32, 64), new Vector2f(320, 64),map);
 	}
 
 	@Override
