@@ -68,7 +68,7 @@ public class MainScene implements Scene {
 
 	@Override
 	public void update(float delta) {
-		f.find(new Vector2f(129, 64), new Vector2f(224, 64),map,5);
+		f.find(new Vector2f(129, 64), new Vector2f(224, 64),map,10);
 		map.Update(delta);
 		player.PhysicUpdate(delta,map);
 		player.update(delta);

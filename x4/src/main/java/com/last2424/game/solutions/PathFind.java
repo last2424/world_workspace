@@ -16,8 +16,43 @@ import com.last2424.ogl.rendering.SpriteBatch;
 import com.last2424.utils.Rectangle;
 
 public class PathFind {
-	class Path{
+	static class CaPatch{
 
+		public  List<Vector2f> points = new ArrayList<Vector2f>();
+	}
+	static class CachePatch {
+
+		public static List<CaPatch> points = new ArrayList<CaPatch>();
+		public static void Reset() {
+			points.clear();
+		}
+		public static List<Vector2f> Find(Vector2f start,Vector2f end){
+			
+			for(int i=0;i<points.size();i++) {
+				List<Vector2f> paths = points.get(i).points;
+				if(start.equals(paths.get(0))) {
+					for(int j =0;j<paths.size();j++) {
+						if(end.equals(paths.get(j)))
+						{
+							List<Vector2f> ps = new ArrayList<Vector2f>();
+							for(int z = 1;z<=j;z++) {
+								ps.add(paths.get(z));
+							}
+							if(ps.size()<=0) {
+								ps.add(end);
+							}
+							 System.out.println(ps.size());
+							return ps;
+						}
+					}
+
+					//System.out.println(paths.size());
+				}
+			}
+			return null;
+		}
+	}
+	class Path{
 		List<Vector2f> points = new ArrayList<Vector2f>();
 		Vector2f start,end;
 		boolean isEnd;
@@ -37,6 +72,10 @@ public class PathFind {
 			this.end = end;
 			float endX = start.x;
 			float endY = start.y;
+			List<Vector2f> tempPath = CachePatch.Find(start, end);
+			if(tempPath!=null) {
+				return tempPath;
+			}
 			if(start.x!=end.x) {
 				if(this.start.x<=this.end.x) {
 					for(int i=(int) start.x;i<=(int)end.x;i++)
@@ -112,7 +151,13 @@ public class PathFind {
 					endX = getFinal.get(i).x;
 					endY = getFinal.get(i).y;
 				}
+				
 			}
+			List<Vector2f> addTemp = new ArrayList<Vector2f>();
+			CachePatch.points.add(new CaPatch());
+			CachePatch.points.get(CachePatch.points.size()-1).points.add(start);
+			CachePatch.points.get(CachePatch.points.size()-1).points.addAll(points);
+			
 			return points;
 		}
 	}
@@ -143,7 +188,7 @@ public class PathFind {
 			points.add(toGlobal(currentPath));
 			endPath = currentPath;
 		}
-		System.out.println(points.size());
+		//System.out.println(points.size());
 	}
 	
 	public void debugDraw(SpriteBatch batch) {
