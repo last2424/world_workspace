@@ -3,7 +3,10 @@ package com.last2424.game.solutions;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 import org.joml.Vector2f;
 import org.lwjgl.opengl.GL11;
@@ -29,7 +32,7 @@ public class PathFind {
 			if(!intComparateVector2f(finalPath2, end) || path1.size()<path2.size()) return path1;
 			return path2;
 		}
-		public List<Vector2f> getFind(Vector2f start, Vector2f end,Map map,int stacks) {
+		public List<Vector2f> getFind(Vector2f start, Vector2f end,Map map,int stacks,int maxStacks) {
 			this.start = start;
 			this.end = end;
 			float endX = start.x;
@@ -82,24 +85,24 @@ public class PathFind {
 			}
 			if(start.x != endX) points.add(new Vector2f(endX,start.y));
 			points.add(new Vector2f(endX,endY));
-			if(stacks>=10) return points;
+			if(stacks>=maxStacks) return points;
 			if(endX != end.x || endY != end.y) {
-				List<Vector2f> newPathVertical = getLowerPath(new Path().getFind(new Vector2f(endX,endY+1), end, map,stacks+1),
-						new Path().getFind(new Vector2f(endX,endY-1), end, map,stacks+1),end);
+				List<Vector2f> newPathVertical = getLowerPath(new Path().getFind(new Vector2f(endX,endY+1), end, map,stacks+1,maxStacks),
+						new Path().getFind(new Vector2f(endX,endY-1), end, map,stacks+1,maxStacks),end);
 				List<Vector2f> backPath;
 				if((int)endX<(int)end.x) {
-					backPath= getLowerPath(new Path().getFind(new Vector2f(endX+1,endY+1), end, map,stacks+1),new Path().getFind(new Vector2f(endX+1,endY-1), end, map,stacks+1),end);
+					backPath= getLowerPath(new Path().getFind(new Vector2f(endX+1,endY+1), end, map,stacks+1,maxStacks),new Path().getFind(new Vector2f(endX+1,endY-1), end, map,stacks+1,maxStacks),end);
 					
 				}
 				else if((int)endX>(int)end.x) {
-					backPath= getLowerPath(new Path().getFind(new Vector2f(endX-1,endY+1), end, map,stacks+1),new Path().getFind(new Vector2f(endX-1,endY-1), end, map,stacks+1),end);
+					backPath= getLowerPath(new Path().getFind(new Vector2f(endX-1,endY+1), end, map,stacks+1,maxStacks),new Path().getFind(new Vector2f(endX-1,endY-1), end, map,stacks+1,maxStacks),end);
 					
 				}
 				else {
-					List<Vector2f>	backPathRight= getLowerPath(new Path().getFind(new Vector2f(endX+1,endY+1), end, map,stacks+1),
-							new Path().getFind(new Vector2f(endX+1,endY-1), end, map,stacks+1),end);
-					List<Vector2f>	backPathLeft =  getLowerPath(new Path().getFind(new Vector2f(endX-1,endY+1), end, map,stacks+1),
-							new Path().getFind(new Vector2f(endX-1,endY-1), end, map,stacks+1),end);
+					List<Vector2f>	backPathRight= getLowerPath(new Path().getFind(new Vector2f(endX+1,endY+1), end, map,stacks+1,maxStacks),
+							new Path().getFind(new Vector2f(endX+1,endY-1), end, map,stacks+1,maxStacks),end);
+					List<Vector2f>	backPathLeft =  getLowerPath(new Path().getFind(new Vector2f(endX-1,endY+1), end, map,stacks+1,maxStacks),
+							new Path().getFind(new Vector2f(endX-1,endY-1), end, map,stacks+1,maxStacks),end);
 					backPath = getLowerPath(backPathRight, backPathLeft, end);
 				}
 				List<Vector2f> getFinal = getLowerPath(backPath, newPathVertical, end);
@@ -124,11 +127,12 @@ public class PathFind {
 	}Vector2f toGlobal(Vector2f global) {
 		return new Vector2f(global.x*16.0f,global.y*16.0f);
 	}
-	public void find(Vector2f start, Vector2f end,Map map) {
+	public void find(Vector2f start, Vector2f end,Map map,int maxStacks) {
+		points = new ArrayList<Vector2f>();
 		this.start = start;
 		this.end = end;
 		points.add(start);
-		List<Vector2f> getFinal = new Path().getFind(toGrid(start),toGrid(end),map,0);
+		List<Vector2f> getFinal = new Path().getFind(toGrid(start),toGrid(end),map,0,maxStacks);
 		Vector2f endPath = toGrid(new Vector2f(start.x,start.y));
 		for(int i=0;i<getFinal.size();i++) {
 			Vector2f currentPath = getFinal.get(i);
@@ -139,6 +143,7 @@ public class PathFind {
 			points.add(toGlobal(currentPath));
 			endPath = currentPath;
 		}
+		System.out.println(points.size());
 	}
 	
 	public void debugDraw(SpriteBatch batch) {

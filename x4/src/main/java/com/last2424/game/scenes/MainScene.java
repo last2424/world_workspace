@@ -64,11 +64,11 @@ public class MainScene implements Scene {
 		source.setVolume(0.1f);
 		source.play(buffer);
 		f = new PathFind();
-		f.find(new Vector2f(32, 64), new Vector2f(320, 64),map);
 	}
 
 	@Override
 	public void update(float delta) {
+		f.find(new Vector2f(129, 64), new Vector2f(224, 64),map,5);
 		map.Update(delta);
 		player.PhysicUpdate(delta,map);
 		player.update(delta);
