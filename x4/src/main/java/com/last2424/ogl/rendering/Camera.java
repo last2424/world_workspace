@@ -56,7 +56,7 @@ public class Camera {
 			if(delta>=1) return;
 			if(!On) return;
 			if(duration > 0) {
-				if(Sign>0) opt-=(duration/maxDuration);
+				if(Sign>0) opt=(duration/maxDuration);
 				else opt=1.0f-(duration/maxDuration);
 				duration -=delta;
 				if(duration<=0) {
