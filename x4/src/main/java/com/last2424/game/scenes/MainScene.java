@@ -82,9 +82,9 @@ public class MainScene implements Scene {
 		camera.render();
 		//tree.render(batch);
 		map.drawBackgrond(batch,camera.position,camera.size);
-		map.draw(batch,camera.position,camera.size,player.position.y,true);
+		map.draw(batch,camera.position,camera.size,player.position.y-32,true);
 		player.render(batch);
-		map.draw(batch,camera.position,camera.size,player.position.y,false);
+		map.draw(batch,camera.position,camera.size,player.position.y-32,false);
 		batch.setColor(1.0f, 1.0f, 1.0f, 1);
 		f.debugDraw(batch);
 		camera.postRender();
