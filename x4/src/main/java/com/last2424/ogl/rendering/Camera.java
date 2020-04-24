@@ -20,7 +20,7 @@ public class Camera {
 		public float maxDuration = 1.0f;
 		public float duration = 1.0f;
 		float opt = 1;
-		public boolean smoth;
+
 		public void FadeIn(float seconds,Vector3f color) {
 			colors = color;
 			duration = seconds;
@@ -107,19 +107,17 @@ public class Camera {
 			if(max.y>=1 && newPos.y+this.size.y>=max.y) newPos.y = max.y-this.size.y;
 			Vector2f dir = new Vector2f(0,0);
 			newPos.sub(this.position,dir);
-			if(smoth){
-				Vector2f direction = new Vector2f(dir.x,dir.y);
-				direction = direction.normalize();
-				if(dir.x<=0.01f) 
-					this.position.x = newPos.x;
-				else
-					this.position.x+=direction.x*speed;
-				if(dir.y<=0.01f) 
-					this.position.y = newPos.y;
-				else
-					this.position.y+=direction.y*speed;
-			}
-			else this.position = newPos;
+			Vector2f direction = new Vector2f(dir.x,dir.y);
+			direction = direction.normalize();
+			if(dir.x<=0.01f) 
+				this.position.x = newPos.x;
+			else
+				this.position.x+=direction.x*speed;
+			if(dir.y<=0.01f) 
+				this.position.y = newPos.y;
+			else
+				this.position.y+=direction.y*speed;
+			
 		}
 	}
 	
