@@ -59,10 +59,12 @@ public class MainScene implements Scene {
 			}
 		});
 		camera.SetMaxCamera(map.getSize());
+		
 		buffer = AudioManager.loadSound("music.wav");
 		source = new AudioSource();
 		source.setVolume(0.1f);
 		source.play(buffer);
+		
 		f = new PathFind();
 	}
 

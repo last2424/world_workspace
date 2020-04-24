@@ -148,27 +148,36 @@ public class Map {
 		}
 		glFlush();
 	}
+	
+	
 	public void Update(float delta) {
-
-		for(int i=0;i<layersObj.size();i++) {
+		
+		for(int i = 0; i < layersObj.size(); i++) {
 			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
-			for(int j=0;j<solids.length;j++) {
+			for(int j = 0; j < solids.length; j++) {
 				solids[j].Update(delta);
 			}
 		}
 	}
+	
+	
 	public ObjectSolid getObject(int id) {
-		for(int i=0;i<layersObj.size();i++) {
+		
+		for(int i = 0; i < layersObj.size(); i++) {
 			ObjectSolid[] solids = (ObjectSolid[])layersObj.get(i).getData();
-			for(int j=0;j<solids.length;j++) {
-				if(solids[j].id == id)
-					return solids[j];
+			for(int j = 0; j < solids.length; j++) {
+				if(solids[j].id == id) return solids[j];
 			}
 		}
+		
 		return null;
 	}
+	
+	
 	public void drawBackgrond(SpriteBatch batch,Vector2f pos,Vector2f size) {
+		
 		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
+		
 		for (int i = 0; i < 2; i++) {
 			Vector2f posStart = new Vector2f(pos.x/tilesize.x, pos.y/tilesize.y);
 			Vector2f mapTile = new Vector2f(size.x/tilesize.x,size.y/tilesize.y);
@@ -176,6 +185,8 @@ public class Map {
 			drawLayer(batch,posStart,posEnd,i);
 		}
 	}
+	
+	
 	public void draw(SpriteBatch batch,Vector2f pos,Vector2f size,float posY,boolean start) {
 		Vector2f tilesize = tileset.tiles[0].GetRegionSize();
 		for (int i = 2; i < layers.size(); i++) {
