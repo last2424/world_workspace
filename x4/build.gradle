@@ -15,25 +15,28 @@ tasks.withType(JavaCompile) {
 }
 
 repositories {
-        
      maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 	 mavenCentral()
      maven { url "http://repo.maven.apache.org/maven2" }
+	 maven { url "https://mvnrepository.com/artifact/io.netty/netty-all" }
+	 maven { url "https://mvnrepository.com/artifact/org.lwjgl/" }
+	 maven { url "https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple" }
+	 maven { url "https://mvnrepository.com/artifact/junit/" }
 }
 dependencies {
-	compile group: 'junit', name: 'junit', version: '4.+'
+	compile group: 'junit', name: 'junit', version: '4.13'
 	compile group: 'com.googlecode.json-simple', name: 'json-simple', version:'1.1.1'
     compile group: 'org.joml', name: 'joml-camera', version:'1.2.0-SNAPSHOT'
-    compile group: 'org.lwjgl', name: 'lwjgl', version:'3.2.3-SNAPSHOT'
-    compile group: 'org.lwjgl', name: 'lwjgl-glfw', version:'3.2.3-SNAPSHOT'
-    compile group: 'org.lwjgl', name: 'lwjgl-opengl', version:'3.2.3-SNAPSHOT'
-	compile group: 'org.lwjgl', name: 'lwjgl-openal', version:'3.2.3-SNAPSHOT'
-    compile group: 'org.lwjgl', name: 'lwjgl-stb', version:'3.2.3-SNAPSHOT'
-    compile group: 'org.lwjgl', name: 'lwjgl', version:'3.2.3-SNAPSHOT', classifier:'natives-windows'
-    compile group: 'org.lwjgl', name: 'lwjgl-opengl', version:'3.2.3-SNAPSHOT', classifier:'natives-windows'
-    compile group: 'org.lwjgl', name: 'lwjgl-glfw', version:'3.2.3-SNAPSHOT', classifier:'natives-windows'
-    compile group: 'org.lwjgl', name: 'lwjgl-stb', version:'3.2.3-SNAPSHOT', classifier:'natives-windows'
-	compile group: 'org.lwjgl', name: 'lwjgl-openal', version:'3.2.3-SNAPSHOT', classifier:'natives-windows'
+    compile group: 'org.lwjgl', name: 'lwjgl', version:'3.2.3'
+    compile group: 'org.lwjgl', name: 'lwjgl-glfw', version:'3.2.3'
+    compile group: 'org.lwjgl', name: 'lwjgl-opengl', version:'3.2.3'
+	compile group: 'org.lwjgl', name: 'lwjgl-openal', version:'3.2.3'
+    compile group: 'org.lwjgl', name: 'lwjgl-stb', version:'3.2.3'
+    compile group: 'org.lwjgl', name: 'lwjgl', version:'3.2.3', classifier:'natives-windows'
+    compile group: 'org.lwjgl', name: 'lwjgl-opengl', version:'3.2.3', classifier:'natives-windows'
+    compile group: 'org.lwjgl', name: 'lwjgl-glfw', version:'3.2.3', classifier:'natives-windows'
+    compile group: 'org.lwjgl', name: 'lwjgl-stb', version:'3.2.3', classifier:'natives-windows'
+	compile group: 'org.lwjgl', name: 'lwjgl-openal', version:'3.2.3', classifier:'natives-windows'
 	compile group: 'io.netty', name: 'netty-all', version: '4.1.46.Final'
 }
 
