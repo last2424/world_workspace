@@ -5,6 +5,8 @@ import static org.lwjgl.opengl.GL11.glFlush;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -20,6 +22,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.last2424.ogl.Window;
 import com.last2424.ogl.rendering.SpriteBatch;
 import com.last2424.ogl.rendering.Texture;
 import com.last2424.ogl.rendering.TextureRegion;
@@ -40,10 +43,12 @@ public class Map {
 	public static Map Load(String name) {
 		try {
 			
+			InputStream i = Window.class.getClass().getResourceAsStream("/com/last2424/assets/maps/" + name + ".json");
+			
 			Map myMap = new Map();
 			
 			JSONParser parser = new JSONParser();
-			JSONObject json = (JSONObject) parser.parse(new FileReader("src/main/java/com/last2424/assets/maps/"+name+".json"));
+			JSONObject json = (JSONObject) parser.parse(new InputStreamReader(i));
 			myMap.mapWidth = Integer.parseInt(json.get("width").toString());
 			myMap.mapHeight = Integer.parseInt(json.get("height").toString());
 			myMap.makeTileset(json.get("tilesets"));

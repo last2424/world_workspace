@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Iterator;
 
 import org.json.simple.JSONArray;
@@ -22,7 +24,8 @@ public class ConfigJSON implements Config {
 	public ConfigJSON(String path, Texture texture) {
 		this.texture = texture;
 		try {
-			json = (JSONObject) parser.parse(new FileReader("src/main/java/com/last2424/assets/json/"+path));
+			InputStream i = Window.class.getClass().getResourceAsStream("/com/last2424/assets/json/"+path);
+			json = (JSONObject) parser.parse(new InputStreamReader(i));
 		} 
 		catch (IOException | ParseException e) {
 			e.printStackTrace();
@@ -32,7 +35,8 @@ public class ConfigJSON implements Config {
 	public ConfigJSON(String path, Texture texture, String animation) {
 		this.texture = texture;
 		try {
-			JSONObject jsonTemp = (JSONObject) parser.parse(new FileReader("src/main/java/com/last2424/assets/json/"+path));
+			InputStream i = Window.class.getClass().getResourceAsStream("/com/last2424/assets/json/"+path);
+			JSONObject jsonTemp = (JSONObject) parser.parse(new InputStreamReader(i));
 			json = (JSONObject) parser.parse(jsonTemp.get(animation).toString());
 		} 
 		catch (IOException | ParseException e) {

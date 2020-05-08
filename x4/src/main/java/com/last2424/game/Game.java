@@ -3,6 +3,7 @@ package com.last2424.game;
 import java.io.IOException;
 
 import com.last2424.game.scenes.MainScene;
+import com.last2424.ogl.Window;
 import com.last2424.ogl.engine.IMain;
 import com.last2424.ogl.engine.audio.AudioManager;
 import com.last2424.ogl.engine.scene.Scene;

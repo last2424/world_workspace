@@ -48,25 +48,23 @@ public class Texture {
 	public static final int REPEAT = GL_REPEAT;
 
 	public Texture(String pngRef) throws IOException {
-		this(new File(Window.PATH+pngRef).toURL());
+		this(Window.class.getClass().getResourceAsStream("/com/last2424/assets/"+pngRef));
 	}
 
 	
-	public Texture(URL pngRef) throws IOException {
+	public Texture(InputStream pngRef) throws IOException {
 		this(pngRef, GL_NEAREST);
 	}
 
-	public Texture(URL pngRef, int filter) throws IOException {
+	public Texture(InputStream pngRef, int filter) throws IOException {
 		this(pngRef, filter, GL_CLAMP_TO_EDGE);
 	}
 
-	public Texture(URL pngRef, int filter, int wrap) throws IOException {
+	public Texture(InputStream pngRef, int filter, int wrap) throws IOException {
 		InputStream input = null;
 		try {
 			//get an InputStream from our URL
-			input = pngRef.openStream();
-			
-			System.out.println(pngRef);
+			input = pngRef;
 			
 			//initialize the decoder
 			PNGDecoder dec = new PNGDecoder(input);

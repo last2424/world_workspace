@@ -60,7 +60,7 @@ public class MainScene implements Scene {
 		});
 		camera.SetMaxCamera(map.getSize());
 		
-		buffer = AudioManager.loadSound("music.wav");
+		buffer = AudioManager.loadSound("theme.wav");
 		source = new AudioSource();
 		source.setVolume(0.1f);
 		source.play(buffer);

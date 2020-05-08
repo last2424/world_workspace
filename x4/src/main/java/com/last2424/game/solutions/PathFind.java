@@ -41,7 +41,6 @@ public class PathFind {
 							if(ps.size()<=0) {
 								ps.add(end);
 							}
-							 System.out.println(ps.size());
 							return ps;
 						}
 					}

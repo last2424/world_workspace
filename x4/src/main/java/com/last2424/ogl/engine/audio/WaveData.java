@@ -64,7 +64,7 @@ public class WaveData {
  
  
     public static WaveData create(String file) throws MalformedURLException, IOException{
-        InputStream stream = new File(Window.PATH+"audio/"+file).toURL().openStream();
+    	InputStream stream = Window.class.getClass().getResourceAsStream("/com/last2424/assets/audio/" + file);
         		//Class.class.getResourceAsStream("/"+file);
         if(stream==null){
             System.err.println("Couldn't find file: "+file);
